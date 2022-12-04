@@ -13,13 +13,13 @@ function CreaSelect($name, $opciones, $valorDefecto = '')
 {
 	$html = "\n" . '<select class="form-select-sm" name="' . $name . '">';
 	foreach ($opciones as $value => $text) {
-		if ($value == $valorDefecto)
+		if ($value == $valorDefecto || (isset($_POST[$name]) && $_POST[$name] == "$value"))
 			$select = 'selected="selected"';
 		else
 			$select = "";
 		$html .= "<option value=\"$value\" $select>$text</option>";
 	}
-	$html .= "\n</select><br>";
+	$html .= "\n</select>";
 
 	return $html;
 }

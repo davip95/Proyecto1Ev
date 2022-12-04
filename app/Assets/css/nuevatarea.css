@@ -2,8 +2,21 @@
     text-align: center;
 }
 
-.formulario {
+.formulario,
+.padrecolumnas {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
+    flex-flow: row nowrap;
+}
+
+.info {
+    text-align: left;
+}
+
+.columnacampos {
+    margin: 1em;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 30%;
 }
