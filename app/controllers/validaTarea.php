@@ -8,6 +8,7 @@ include("../models/filtroFechaRealizacion.php");
 include("../models/filtroFechaSinModificar.php");
 include("../models/filtroTelefono.php");
 include("../models/filtroVacio.php");
+include("../models/filtroRadio.php");
 
 $error = new GestorErrores('<span style="color:red">', '</span>');
 
@@ -29,6 +30,9 @@ if ($_POST) {
     }*/
     if (estaVacio($_POST['descripcion'])) {
         $error->AnotaError('descripcion', 'La descripción no puede estar vacía.');
+    }
+    if (!estaMarcado('estado')) {
+        $error->AnotaError('estado', 'Debe seleccionar un estado.');
     }
     if (hayModificacion($_POST['fechacreacion'])) {
         $error->AnotaError('fechacreacion', 'La fecha de creación no se puede modificar. Debe ser la de hoy.');

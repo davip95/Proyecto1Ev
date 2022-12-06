@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `bunglebuild`.`tareas` (
   `fechafin` VARCHAR(45) NULL,
   `anotaantes` VARCHAR(45) NULL,
   `anotapost` VARCHAR(45) NULL,
-  `admin` INT NULL,
+  `administrador` INT NULL,
   PRIMARY KEY (`idtarea`))
 ENGINE = InnoDB;
 
