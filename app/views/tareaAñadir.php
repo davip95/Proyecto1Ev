@@ -11,10 +11,6 @@
 </head>
 
 <body>
-    <?php
-    include("../models/utilsforms.php");
-    $operarios = [1 => "Pepe", 2 => "Manolo", 3 => "Ana", 4 => "Antonio"];
-    ?>
     <h1>Tarea</h1>
     <div class="formulario">
         <form enctype="multipart/form-data" action="../controllers/validaTarea.php" method="POST">
@@ -80,7 +76,16 @@
                 </div>
                 <div class="columnacampos">
                     <label class="form-label">Operario encargado</label><br>
-                    <?= CreaSelect("operario", $operarios) ?><br><br>
+                    <!--  //CreaSelect("operario", $operarios) ?><br><br> -->
+                    <select class="form-select-sm" name="operario">
+                        <?php
+                        foreach ($operarios as $operario) :
+                        ?>
+                            <option value="<?= $operario["operario"] ?>"><?= $operario["nombreop"] ?></option>
+                        <?php
+                        endforeach;
+                        ?>
+                    </select><br><br>
 
                     <label class="form-label">Fecha de realización</label><br>
                     <input type="date" name="fechafin" class="form-control form-control-sm" value="<?= isset($_POST['fechafin']) ? $_POST['fechafin'] : '' ?>"><br>

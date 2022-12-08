@@ -1,5 +1,5 @@
 <?php
-require("baseDatos.php");
+require("baseDatosModel.php");
 
 class Tareas
 {
@@ -14,7 +14,7 @@ class Tareas
      */
     public function getTareas()
     {
-        return Database::getInstance()->getAll('tareas');
+        //return Database::getInstance()->getAll('tareas');
     }
 
     public function getTareaPendiente()

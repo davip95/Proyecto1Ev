@@ -1,5 +1,5 @@
 <?php
-require("baseDatos.php");
+require("baseDatosModel.php");
 
 class ProvCom
 {
@@ -14,7 +14,7 @@ class ProvCom
      */
     public function getProvincias()
     {
-        return Database::getInstance()->getAll("tbl_provincias");
+        //return Database::getInstance()->getAll("tbl_provincias");
     }
 
     public function getTareaPendiente()

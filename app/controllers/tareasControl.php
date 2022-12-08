@@ -1,5 +1,7 @@
 <?php
 
+require_once("baseDatosControl.php");
+
 include("../models/GestorErrores.php");
 include("../models/filtroCodPostal.php");
 include("../models/filtroCorreo.php");
@@ -64,11 +66,11 @@ if ($_POST) {
     }
     //Si hay algún error, muestro de nuevo el formulario con un mensaje de error en cada campo que tenga error
     if ($error->HayErrores()) {
-        include('../views/nuevaTarea.php');
+        include('../views/tareaAñadir.php');
     } else {
         //AQUI IRÍA UN INCLUDE AL ARCHIVO DE BD QUE HAGA EL INSERT
         include('');
     }
 } else {
-    include('../views/nuevaTarea.php');
+    include('../views/tareaAñadir.php');
 }

@@ -1,5 +1,5 @@
 <?php
-include_once("baseDatos.php");
+include("baseDatosModel.php");
 
 class Usuarios
 {
@@ -19,7 +19,13 @@ class Usuarios
         $query->execute();
         $resultado = $query->fetchAll();
         return $resultado;*/
-        return Database::getInstance()->getAll('operarios');
+        $data = Database::getInstance();
+        $stm = $data->dbh->query("SELECT * FROM operarios");
+        $operarios = array();
+        while ($operario = $stm->fetch()) {
+            $operarios[] = $operario;
+        }
+        return $operarios;
     }
 
     public function getTareaPendiente()

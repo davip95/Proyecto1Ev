@@ -1,12 +1,11 @@
 <?php
-require("controllers/baseDatosControl.php");
-
+include("inicioVista.php");
 // Defino constante de la carpeta de controladores
 define('CONTROLLERS_FOLDER', "controllers/");
 
 // Defino constante de controlador por defecto
 
-define('DEFAULT_CONTROLLER', "tareas");
+define('DEFAULT_CONTROLLER', "baseDatos");
 
 // Defino constante de la acción por defecto
 
@@ -24,34 +23,18 @@ $accion = DEFAULT_ACTION;
 if (!empty($_GET['action']))
     $action = $_GET['action'];
 
-?>
+//Ya tenemos el controlador y la accion
+//Formamos el nombre del fichero que contiene nuestro controlador
+$controller = CONTROLLERS_FOLDER . $controller . "Control.php";
 
-<!DOCTYPE html>
-<html lang="en">
+//Si la variable $controller es un fichero lo requerimos
+if (is_file($controller))
+    require_once($controller);
+else
+    die('El controlador no existe');
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-</head>
-
-<body>
-    <h1>Bunglebuild S.L.</h1>
-    <h3>Gestor de Incidencias/Tareas</h3>
-    <button>Ver lista</button>
-    <br><br>
-    <button>Añadir</button>
-    <br><br>
-    <button>Modificar</button>
-    <br><br>
-    <button>Eliminar</button>
-    <br><br>
-    <button>Cambiar estado</button>
-    <br><br>
-    <button>Completar</button>
-    <br><br>
-    <button>Buscar</button>
-</body>
-
-</html>
+//Si la variable $action es una funcion la ejecutamos o detenemos el script
+if (is_callable($action))
+    $action();
+else
+    die('La accion no existe');
