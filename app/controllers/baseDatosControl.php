@@ -7,10 +7,10 @@
  */
 function listar()
 {
-    require("../models/baseDatosUsuariosModel.php");
+    require(APP_PATH . "models/baseDatosUsuariosModel.php");
     $usuarios = new Usuarios();
     $operarios = $usuarios->getOperarios();
-    include("tareasControl.php");
+    //include("tareasControl.php");
 }
 /*require("../models/baseDatosUsuarios.php");
 $usuarios = new Usuarios();
