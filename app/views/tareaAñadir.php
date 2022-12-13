@@ -13,7 +13,7 @@
 <body>
     <h1>Tarea</h1>
     <div class="formulario">
-        <form enctype="multipart/form-data" action="../controllers/validaTarea.php" method="POST">
+        <form enctype="multipart/form-data" method="POST">
             <div class="padrecolumnas">
                 <div class="columnacampos">
                     <label class="form-label">NIF o CIF</label><br>
