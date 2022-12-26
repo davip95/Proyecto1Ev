@@ -30,51 +30,50 @@ CREATE TABLE IF NOT EXISTS `bunglebuild`.`tareas` (
   `telefono` VARCHAR(45) NOT NULL,
   `descripcion` VARCHAR(45) NOT NULL,
   `correo` VARCHAR(45) NOT NULL,
-  `direccion` VARCHAR(45) NULL,
-  `poblacion` VARCHAR(45) NULL,
-  `codpostal` VARCHAR(45) NULL,
+  `direccion` VARCHAR(45) NOT NULL,
+  `poblacion` VARCHAR(45) NOT NULL,
+  `codpostal` VARCHAR(45) NOT NULL,
   `provincia` VARCHAR(45) NOT NULL,
   `estado` VARCHAR(45) NOT NULL,
   `fechacreacion` VARCHAR(45) NOT NULL,
-  `operario` INT NULL,
+  `idusuario` INT NOT NULL,
   `fechafin` VARCHAR(45) NULL,
   `anotaantes` VARCHAR(45) NULL,
   `anotapost` VARCHAR(45) NULL,
-  `administrador` INT NULL,
   PRIMARY KEY (`idtarea`))
 ENGINE = InnoDB;
 
+-- 
+-- Volcar la base de datos para la tabla `tareas`
+-- 
+
+INSERT INTO `tareas` VALUES 
+(1, '42804790X', 'Pepe', 'Gomez', '665478153', 'alicatado', 'pepe@gmail.com', 'Calle Falsa 123', 'Huelva', '21005', 'Huelva', 'P', '2022-12-04', 2, NULL, NULL, NULL),
+(2, '45604731G', 'Clara', 'Perez', '785478112', 'cimentacion', 'clara@gmail.com', 'Calle Falsa 23', 'Niebla', '21055', 'Huelva', 'R', '2022-12-02', 3, '2022-12-08', NULL, NULL),
+(3, '44604768B', 'Juan', 'Bueno', '614 781 650', 'pintura', 'juan@gmail.com', 'Calle Falsa 78', 'Moguer', '21482', 'Huelva', 'C', '2022-12-06', 3, '2022-12-07', NULL, 'El cliente cambio de idea');
+
 
 -- -----------------------------------------------------
--- Table `bunglebuild`.`operarios`
+-- Table `bunglebuild`.`usuarios`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `bunglebuild`.`operarios` ;
+DROP TABLE IF EXISTS `bunglebuild`.`usuarios` ;
 
-CREATE TABLE IF NOT EXISTS `bunglebuild`.`operarios` (
-  `operario` INT NOT NULL AUTO_INCREMENT,
-  `nombreop` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`operario`))
+CREATE TABLE IF NOT EXISTS `bunglebuild`.`usuarios` (
+  `idusuario` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `pass` VARCHAR(45) NOT NULL,
+  `tipo` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idusuario`))
 ENGINE = InnoDB;
 
 -- 
--- Volcar la base de datos para la tabla `operarios`
+-- Volcar la base de datos para la tabla `usuarios`
 -- 
 
-INSERT INTO `operarios` VALUES (1, 'Pepe'),
-(2, 'Manolo'),
-(3, 'Ana'),
-(4, 'Antonio');
-
--- -----------------------------------------------------
--- Table `bunglebuild`.`administradores`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `bunglebuild`.`administradores` ;
-
-CREATE TABLE IF NOT EXISTS `bunglebuild`.`administradores` (
-  `admin` INT NOT NULL,
-  `nombreadmin` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`admin`))
-ENGINE = InnoDB;
+INSERT INTO `usuarios` VALUES (1, 'admin', 'admin', 'administrador'),
+(2, 'Manolo', 'm1234', 'operario'),
+(3, 'Ana', 'a1234', 'operario'),
+(4, 'Antonio', 'a1234', 'operario');
 
 
 -- -----------------------------------------------------
