@@ -1,5 +1,5 @@
 <?php
-require("baseDatosModel.php");
+include_once("baseDatosModel.php");
 
 class Tareas
 {

@@ -1,5 +1,5 @@
 <?php
-include("baseDatosModel.php");
+include_once("baseDatosModel.php");
 
 class Usuarios
 {
@@ -14,13 +14,8 @@ class Usuarios
      */
     public function getOperarios()
     {
-        /*$query = Database::getInstance()->dbh->prepare("SELECT * FROM operarios");
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $query->execute();
-        $resultado = $query->fetchAll();
-        return $resultado;*/
         $data = Database::getInstance();
-        $stm = $data->dbh->query("SELECT * FROM operarios");
+        $stm = $data->dbh->query("SELECT idusuario, nombre FROM usuarios WHERE tipo='operario'");
         $operarios = array();
         while ($operario = $stm->fetch()) {
             $operarios[] = $operario;

@@ -3,7 +3,7 @@
         'name' => 'david/proyecto1ev',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '0454a32694050379921c9db703a3ab59a9ada98a',
+        'reference' => '9790657c62fbca85a7c84ac6e98ccfd714c8cac2',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'david/proyecto1ev' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0454a32694050379921c9db703a3ab59a9ada98a',
+            'reference' => '9790657c62fbca85a7c84ac6e98ccfd714c8cac2',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

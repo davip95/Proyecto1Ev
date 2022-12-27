@@ -18,5 +18,5 @@ h1,
     margin: 1em;
     display: flex;
     flex-flow: column nowrap;
-    width: 30%;
+    /* width: 40%; */
 }

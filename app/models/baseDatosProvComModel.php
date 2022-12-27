@@ -1,5 +1,5 @@
 <?php
-require("baseDatosModel.php");
+include_once("baseDatosModel.php");
 
 class ProvCom
 {
@@ -14,22 +14,12 @@ class ProvCom
      */
     public function getProvincias()
     {
-        //return Database::getInstance()->getAll("tbl_provincias");
-    }
-
-    public function getTareaPendiente()
-    {
-    }
-
-    public function addTarea()
-    {
-    }
-
-    public function updateTareas()
-    {
-    }
-
-    public function delTareas()
-    {
+        $data = Database::getInstance();
+        $stm = $data->dbh->query("SELECT * FROM tbl_provincias");
+        $provincias = array();
+        while ($provincia = $stm->fetch()) {
+            $provincias[] = $provincia;
+        }
+        return $provincias;
     }
 }
