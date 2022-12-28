@@ -14,7 +14,13 @@ class Tareas
      */
     public function getTareas()
     {
-        //return Database::getInstance()->getAll('tareas');
+        $data = Database::getInstance();
+        $stm = $data->dbh->query("SELECT * FROM tareas ORDER BY fechafin DESC");
+        $tareas = array();
+        while ($tarea = $stm->fetch()) {
+            $tareas[] = $tarea;
+        }
+        return $tareas;
     }
 
     public function getTareaPendiente()

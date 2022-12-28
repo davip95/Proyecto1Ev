@@ -14,4 +14,4 @@ define('DEFAULT_CONTROLLER', "tareas");
 
 // Defino constante de la acción por defecto
 
-define('DEFAULT_ACTION', "iniciar");
+define('DEFAULT_ACTION', "listar");

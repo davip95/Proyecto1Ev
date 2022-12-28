@@ -1,15 +1,15 @@
 <?php
 
-/**
- * iniciar: muestra la vista inicial de la aplicación
- *
- * @return void
- */
-function iniciar()
-{
-    include(APP_PATH . 'models/varios.php');
-    echo $blade->render('inicioVista');
-}
+// /**
+//  * iniciar: muestra la vista inicial de la aplicación
+//  *
+//  * @return void
+//  */
+// function iniciar()
+// {
+//     include(APP_PATH . 'models/varios.php');
+//     echo $blade->render('inicioVista');
+// }
 
 /**
  * listarOperarios: genera un array con cada operario y su id para listarlos en el select del formulario
@@ -139,4 +139,18 @@ function crear()
             'error' => $error, 'operarios' => $ops, 'provincias' => $provs
         ]);
     }
+}
+
+/**
+ * listar: genera un array de las tareas almacenadas para mostrarlas en una tabla con Blade
+ *
+ * @return void
+ */
+function listar()
+{
+    include(APP_PATH . 'models/varios.php');
+    require(APP_PATH . "models/baseDatosTareasModel.php");
+    $tar = new Tareas();
+    $tareas = $tar->getTareas();
+    echo $blade->render('tareasVer', ['tareas' => $tareas]);
 }
