@@ -1,5 +1,5 @@
 <?php
-
+/* ESTA FUNCION DE INICIAR NO SE USARÁ PERO TAL VEZ MODIFIQUE SU CONTENIDO Y SE USE DESPUES DE HACER EL LOGIN */
 // /**
 //  * iniciar: muestra la vista inicial de la aplicación
 //  *
@@ -47,6 +47,7 @@ function listarProvincias()
  */
 function crear()
 {
+    include(APP_PATH . 'models/baseDatosTareasModel.php');
     include(APP_PATH . 'models/varios.php');
     include(APP_PATH . "models/GestorErrores.php");
     include(APP_PATH . "models/filtroCodPostal.php");
@@ -132,7 +133,15 @@ function crear()
                 'error' => $error, 'operarios' => $ops, 'provincias' => $provs
             ]);
         } else {
-            //AQUI SE HACE EL INSERT EN LA BASE DE DATOS Y CON BLADE SE MUESTRA EL LISTADO DE TAREAS (MAS TARDE METER PAGINACION)
+            $datosTarea = $_POST;
+            $tar = new Tareas();
+            // Si se inserta correctamente la tarea, muestro la vista del listado de tareas paginadas
+            if ($tar->insertaTarea($datosTarea)) {
+                $tar = new Tareas();
+                $tareas = $tar->getTareas();
+                echo $blade->render('tareasVer', ['tareas' => $tareas]);
+            } else
+                die('Error. La tarea no pudo insertarse.');;
         }
     } else {
         echo $blade->render('tareaAñadir', [

@@ -38,7 +38,7 @@
                 <select class="form-select form-select-lg" name="provincia">
                     <option disabled selected>Selecciona provincia</option>
                     @foreach ($provincias as $provincia)
-                    <option value="{{$provincia['cod']}}"> {{$provincia["nombre"]}}</option>
+                    <option value="{{$provincia['nombre']}}"> {{$provincia["nombre"]}}</option>
                     @endforeach
                 </select>
                 {!!$error->ErrorFormateado('provincia')!!}

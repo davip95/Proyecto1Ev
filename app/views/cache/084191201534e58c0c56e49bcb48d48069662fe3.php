@@ -39,7 +39,7 @@
                 <select class="form-select form-select-lg" name="provincia">
                     <option disabled selected>Selecciona provincia</option>
                     <?php $__currentLoopData = $provincias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $provincia): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <option value="<?php echo e($provincia['cod']); ?>"> <?php echo e($provincia["nombre"]); ?></option>
+                    <option value="<?php echo e($provincia['nombre']); ?>"> <?php echo e($provincia["nombre"]); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
                 <?php echo $error->ErrorFormateado('provincia'); ?>
