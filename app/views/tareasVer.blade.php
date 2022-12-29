@@ -1,10 +1,10 @@
 @extends('plantilla_admin')
 @section('cuerpo')
-<h1 class="display-5">Lista de tareas</h1>
+<h1>Lista de tareas</h1>
 <table class="table table-striped table-responsive table-condensed" id="listaTareas">
     <thead class="table-dark">
         <tr>
-            <th>Fecha Realización</th>
+            <th>Fecha Creación</th>
             <th>DNI</th>
             <th>Nombre</th>
             <th>Apellidos</th>
@@ -12,14 +12,14 @@
             <th>Descripción</th>
             <th>Población</th>
             <th>Estado</th>
-            <th>Fecha Creación</th>
+            <th>Fecha Realización</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($tareas as $tarea)
         <tr>
-            <td>{{$tarea['fechafin']}}</td>
+            <td>{{$tarea['fechacreacion']}}</td>
             <td>{{$tarea['dni']}}</td>
             <td>{{$tarea['nombre']}}</td>
             <td>{{$tarea['apellidos']}}</td>
@@ -27,7 +27,7 @@
             <td>{{$tarea['descripcion']}}</td>
             <td>{{$tarea['poblacion']}}</td>
             <td>{{$tarea['estado']}}</td>
-            <td>{{$tarea['fechacreacion']}}</td>
+            <td>{{$tarea['fechafin']}}</td>
             <td>
                 <a href="" class="btn btn-info" role="button">Detalles</a>
                 <a href="" class="btn btn-warning" role="button">Editar</a>
@@ -37,4 +37,44 @@
         @endforeach
     </tbody>
 </table>
+
+<nav>
+    <ul class="pagination">
+        <li>
+            <a href="index.php?controller=tareas&action=listar">
+                <span>&laquo;</span>
+            </a>
+        </li>
+        <!-- Si la página actual es mayor a uno, mostramos el botón para ir una página atrás -->
+        @if ($pagina > 1)
+        <li>
+            <a href="index.php?controller=tareas&action=listar&pagina={{$pagina-1}}">
+                <span aria-hidden="true">&lt;</span>
+            </a>
+        </li>
+        @endif
+        <!-- Mostramos enlaces para ir a todas las páginas con un bucle for-->
+        @for ($x = 1; $x <= $paginas; $x++) @if ($x==$pagina) <li class="active">
+            @else
+            <li>
+                @endif
+                <a href="index.php?controller=tareas&action=listar&pagina={{$x}}">
+                    {{$x}}</a>
+            </li>
+            @endfor
+            <!-- Si la página actual es menor al total de páginas, mostramos un botón para ir una página adelante -->
+            @if ($pagina < $paginas) <li>
+                <a href="index.php?controller=tareas&action=listar&pagina={{$pagina+1}}">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+                </li>
+                @endif
+                <li>
+                    <a href="index.php?controller=tareas&action=listar&pagina={{$paginas}}">
+                        <span>&raquo;</span>
+                    </a>
+                </li>
+    </ul>
+</nav>
+<h5><em>Tareas totales: {{$conteo}}</em></h5>
 @endsection

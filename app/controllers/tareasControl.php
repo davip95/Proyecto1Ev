@@ -40,7 +40,7 @@ function listarProvincias()
 
 /**
  * crear: funcion que valida el formulario de creación de nueva tarea
- * Si pasa la validación, inserta la tarea en la base de datos
+ * Si pasa la validación, inserta la tarea en la base de datos y muestra la tarea en detalle
  * Si no la pasa, vuelve a mostrar el formulario con los errores
  *
  * @return void
@@ -138,8 +138,13 @@ function crear()
             // Si se inserta correctamente la tarea, muestro la vista del listado de tareas paginadas
             if ($tar->insertaTarea($datosTarea)) {
                 $tar = new Tareas();
-                $tareas = $tar->getTareas();
-                echo $blade->render('tareasVer', ['tareas' => $tareas]);
+                // MEJORA --> MOSTRAR LA TAREA INSERTADA EN DETALLE
+                list($paginas, $conteo) = $tar->conteoTareas();
+                list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPags();
+                echo $blade->render('tareasVer', [
+                    'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
+                    'paginas' => $paginas, 'conteo' => $conteo
+                ]);
             } else
                 die('Error. La tarea no pudo insertarse.');;
         }
@@ -151,7 +156,8 @@ function crear()
 }
 
 /**
- * listar: genera un array de las tareas almacenadas para mostrarlas en una tabla con Blade
+ * listar: llama a las funciones conteoTareas() y getTareasPags() de las que obtiene las tareas y los datos
+ * necesarios para la paginacion para mostrarlo en una tabla con Blade
  *
  * @return void
  */
@@ -160,6 +166,10 @@ function listar()
     include(APP_PATH . 'models/varios.php');
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $tar = new Tareas();
-    $tareas = $tar->getTareas();
-    echo $blade->render('tareasVer', ['tareas' => $tareas]);
+    list($paginas, $conteo) = $tar->conteoTareas();
+    list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPags();
+    echo $blade->render('tareasVer', [
+        'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
+        'paginas' => $paginas, 'conteo' => $conteo
+    ]);
 }

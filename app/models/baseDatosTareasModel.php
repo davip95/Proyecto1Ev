@@ -24,7 +24,8 @@ class Tareas
     }
 
     /**
-     * getTareasPags: devuelve un array en el que se guarda la informacion de cada tarea que aparece en la pagina que se esta viendo
+     * getTareasPags: devuelve un array en el que se guarda un array con la informacion de cada tarea que aparece en la pagina que se esta viendo,
+     * el numero de tareas por pagina y la pagina actual
      *
      * @return Array
      */
@@ -41,16 +42,19 @@ class Tareas
         $limit = $tareasPorPagina;
         # El offset es saltar X tareas que viene dado por multiplicar la página - 1 * las tareas por página
         $offset = ($pagina - 1) * $tareasPorPagina;
-        $stm = $data->dbh->prepare("SELECT * FROM productos LIMIT ? OFFSET ?");
-        $stm->execute([$limit, $offset]);
-        $tareas = $stm->fetchAll(PDO::FETCH_OBJ);
-        return $tareas;
+        $stm = $data->dbh->query("SELECT * FROM tareas ORDER BY fechacreacion DESC LIMIT $limit OFFSET $offset");
+        $tareas = array();
+        while ($tarea = $stm->fetch()) {
+            $tareas[] = $tarea;
+        }
+        return [$tareas, $tareasPorPagina, $pagina];
     }
 
     /**
-     * conteoTareas: obtiene el numero de tareas y las divide entre las tareas por paginas para obtener las paginas totales para la paginacion
+     * conteoTareas: obtiene el numero de tareas y las divide entre las tareas por paginas para obtener las paginas totales para la paginacion. 
+     * Devuelve el numero de paginas y el numero de tareas
      *
-     * @return int
+     * @return Array
      */
     public function conteoTareas()
     {
@@ -60,7 +64,7 @@ class Tareas
         $conteo = $stm->fetchObject()->conteo;
         // Para obtener las páginas dividimos el conteo entre los productos por página, y redondeamos hacia arriba
         $paginas = ceil($conteo / $tareasPorPagina);
-        return $paginas;
+        return [$paginas, $conteo];
     }
 
     /**
