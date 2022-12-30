@@ -28,6 +28,9 @@
                     <li class="nav-item">
                         <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=crear" role="button">Añadir Tarea</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=verPendientes" role="button">Tareas Pendientes</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <p class="navbar-text">Bienvenido: </p>

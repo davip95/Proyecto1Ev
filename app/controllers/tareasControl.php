@@ -103,6 +103,10 @@ function crear()
             if (!validaFechaRealizacion($_POST['fechafin'])) {
                 $error->AnotaError('fechafin', 'La fecha de realización debe ser posterior a la actual.');
             }
+            // Compruebo si ha metido fecha de realización sin marcar el estado como Realizada
+            if (estaMarcado('estado') && $_POST['estado'] != 'R') {
+                $error->AnotaError('estado', 'Para introducir una fecha de realización el estado debe ser Realizada (R).');
+            }
         }
         if (estaVacio($_POST['codpostal'])) {
             $error->AnotaError('codpostal', 'El código postal no puede estar vacío.');
@@ -126,6 +130,7 @@ function crear()
         } else {
             $error->AnotaError('correo', 'El correo no puede estar vacío.');
         }
+
         //Si hay algún error, muestro de nuevo el formulario con un mensaje de error en cada campo que tenga error
         if ($error->HayErrores()) {
             //var_dump($_POST);
@@ -135,16 +140,11 @@ function crear()
         } else {
             $datosTarea = $_POST;
             $tar = new Tareas();
-            // Si se inserta correctamente la tarea, muestro la vista del listado de tareas paginadas
-            if ($tar->insertaTarea($datosTarea)) {
-                $tar = new Tareas();
-                // MEJORA --> MOSTRAR LA TAREA INSERTADA EN DETALLE
-                list($paginas, $conteo) = $tar->conteoTareas();
-                list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPags();
-                echo $blade->render('tareasVer', [
-                    'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
-                    'paginas' => $paginas, 'conteo' => $conteo
-                ]);
+            // Si se inserta correctamente la tarea, muestro la vista de los detalles de la tarea
+            $idTarea = $tar->insertaTarea($datosTarea);
+            if ($idTarea) {
+                $tarea = $tar->getTarea($idTarea);
+                echo $blade->render('tareasVerDetalles', ['tarea' => $tarea,]);
             } else
                 die('Error. La tarea no pudo insertarse.');;
         }
@@ -169,6 +169,39 @@ function listar()
     list($paginas, $conteo) = $tar->conteoTareas();
     list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPags();
     echo $blade->render('tareasVer', [
+        'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
+        'paginas' => $paginas, 'conteo' => $conteo
+    ]);
+}
+
+/**
+ * ver: muestra la tarea cuyo id se obtiene de la url para ver todos sus detalles y poder completarla
+ *
+ * @return void
+ */
+function ver()
+{
+    include(APP_PATH . 'models/varios.php');
+    require(APP_PATH . "models/baseDatosTareasModel.php");
+    $idTarea = $_GET["id"];
+    $tar = new Tareas();
+    $tarea = $tar->getTarea($idTarea);
+    echo $blade->render('tareasVerDetalles', ['tarea' => $tarea,]);
+}
+
+/**
+ * verPendientes: muestra un listado de todas las tareas pendientes (estado = "P")
+ *
+ * @return void
+ */
+function verPendientes()
+{
+    include(APP_PATH . 'models/varios.php');
+    require(APP_PATH . "models/baseDatosTareasModel.php");
+    $tar = new Tareas();
+    list($paginas, $conteo) = $tar->conteoTareas('estado', '"P"');
+    list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPags('estado', '"P"');
+    echo $blade->render('tareasVerPendientes', [
         'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
         'paginas' => $paginas, 'conteo' => $conteo
     ]);

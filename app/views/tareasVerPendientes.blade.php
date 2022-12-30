@@ -1,6 +1,6 @@
 @extends('plantilla_admin')
 @section('cuerpo')
-<h1>Lista de tareas</h1>
+<h1>Lista de tareas pendientes</h1>
 <br>
 <table class="table table-striped table-responsive table-condensed" id="listaTareas">
     <thead class="table-dark">
@@ -78,5 +78,5 @@
                 @endif
     </ul>
 </nav>
-<h5><em>Tareas totales: {{$conteo}}</em></h5>
+<h5><em>Tareas pendientes totales: {{$conteo}}</em></h5>
 @endsection

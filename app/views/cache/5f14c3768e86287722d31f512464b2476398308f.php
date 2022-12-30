@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('cuerpo'); ?>
-<h1>Lista de tareas</h1>
+<h1>Lista de tareas pendientes</h1>
 <br>
 <table class="table table-striped table-responsive table-condensed" id="listaTareas">
     <thead class="table-dark">
@@ -78,6 +78,6 @@
                 <?php endif; ?>
     </ul>
 </nav>
-<h5><em>Tareas totales: <?php echo e($conteo); ?></em></h5>
+<h5><em>Tareas pendientes totales: <?php echo e($conteo); ?></em></h5>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('plantilla_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\david\Desktop\FP\2º DAW (Curso 22-23)\Desarrollo Web en Entorno Servidor\Proyecto1Ev\app\views/tareasVer.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('plantilla_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\david\Desktop\FP\2º DAW (Curso 22-23)\Desarrollo Web en Entorno Servidor\Proyecto1Ev\app\views/tareasVerPendientes.blade.php ENDPATH**/ ?>
