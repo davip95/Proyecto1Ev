@@ -106,15 +106,24 @@ class Tareas
         }
     }
 
-    public function addTarea()
+    /**
+     * editaTarea: modifica en la base de datos la tarea que se pasa como parametro. Si el update se ejecuta correctamente devuelve true, sino devuelve false
+     *
+     * @param  mixed $datosTarea
+     * @return boolean
+     */
+    public function editaTarea($datosTarea)
     {
-    }
-
-    public function updateTareas()
-    {
-    }
-
-    public function delTareas()
-    {
+        $data = Database::getInstance();
+        $datos = "'" . $datosTarea['dni'] . "','" . $datosTarea['nombre'] . "','" . $datosTarea['apellidos'] . "','" . $datosTarea['telefono'] . "','"
+            . $datosTarea['descripcion'] . "','" . $datosTarea['correo'] . "','" . $datosTarea['direccion'] . "','" . $datosTarea['poblacion'] . "','"
+            . $datosTarea['codpostal'] . "','" . $datosTarea['provincia'] . "','" . $datosTarea['estado'] . "','" . $datosTarea['fechacreacion'] . "','"
+            . $datosTarea['operario'] . "','" . $datosTarea['fechafin'] . "','" . $datosTarea['anotaantes'] . "','" . $datosTarea['anotapost'] . "'";
+        $stm = $data->dbh->query("INSERT INTO tareas VALUES(NULL," . $datos . ")");
+        if ($stm) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

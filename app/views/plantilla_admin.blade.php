@@ -18,10 +18,10 @@
     <header class="bg-dark text-center text-white">
         <nav class="navbar navbar-inverse navbar-expand-lg navbar-dark bg-dark">
             <div class="navbar-header">
-                <a class="navbar-brand" href="">Bunglebuild S.L.</a>
+                <h6 class="navbar-brand">Bunglebuild S.L.</h6>
             </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav mr-auto botonesCabecera">
                     <li class="nav-item">
                         <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=listar" role="button">Ver Tareas</a>
                     </li>
@@ -34,7 +34,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <p class="navbar-text">Bienvenido: </p>
-                    <li><a href="" id="logout"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
+                    <li class="botonesCabecera"><a href="" id="logout"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
                 </ul>
             </div>
         </nav>

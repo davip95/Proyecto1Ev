@@ -31,7 +31,7 @@
             <td>{{$tarea['fechafin']}}</td>
             <td>
                 <a href="index.php?controller=tareas&action=ver&id={{$tarea['idtarea']}}" class="btn btn-info" role="button">Detalles</a>
-                <a href="" class="btn btn-warning" role="button">Editar</a>
+                <a href="index.php?controller=tareas&action=editar&id={{$tarea['idtarea']}}" class="btn btn-warning" role="button">Editar</a>
                 <a href="" class="btn btn-danger" role="button">Borrar</a>
             </td>
         </tr>

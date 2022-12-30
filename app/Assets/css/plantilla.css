@@ -25,3 +25,7 @@ footer {
 #logout:hover {
     color: red;
 }
+
+.botonesCabecera {
+    padding-top: 5px;
+}

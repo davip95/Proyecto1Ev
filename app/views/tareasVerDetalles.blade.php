@@ -1,6 +1,6 @@
 @extends('plantilla_admin')
 @section('cuerpo')
-<h1>Detalles de la tarea {{$tarea['idtarea']}}</h1>
+<h1>Tarea {{$tarea['idtarea']}}</h1>
 <br>
 <table class="table table-bordered table-responsive table-condensed" id="listaTareas">
     <thead class="table-dark">
@@ -59,7 +59,7 @@
                 @if($tarea['estado'] != 'R')
                 <a href="" class="btn btn-success" role="button">Completar</a>
                 @endif
-                <a href="" class="btn btn-warning" role="button">Editar</a>
+                <a href="index.php?controller=tareas&action=editar&id={{$tarea['idtarea']}}" class="btn btn-warning" role="button">Editar</a>
                 <a href="" class="btn btn-danger" role="button">Borrar</a>
             </td>
         </tr>

@@ -2,16 +2,16 @@
 
 /**
  * validaFechaRealizacion: comprueba si la fecha de realización es posterior a la
- * fecha actual
+ * fecha de creacion
  *
  * @param  mixed $fecha
  * @return boolean
  */
-function validaFechaRealizacion($fecha)
+function validaFechaRealizacion($fecha, $fechaCreacion)
 {
-    $fechaActual = new DateTime(date('Y-m-d'));
+    $fechaCreada = new DateTime($fechaCreacion);
     $fechaDada = new DateTime($fecha);
-    if ($fechaDada > $fechaActual) {
+    if ($fechaDada > $fechaCreada) {
         return true;
     } else
         return false;

@@ -1,5 +1,6 @@
 
 <?php $__env->startSection('cuerpo'); ?>
+<h1>Añadir nueva tarea</h1>
 <div class="formulario">
     <form enctype="multipart/form-data" method="POST">
         <div class="padrecolumnas">
