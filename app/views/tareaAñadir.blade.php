@@ -71,7 +71,7 @@
                 <select class="form-select form-select-lg" name="operario">
                     <option disabled selected>Selecciona operario</option>
                     @foreach ($operarios as $operario)
-                    <option value="{{$operario['idusuario']}}"> {{$operario["nombre"]}}</option>
+                    <option value="{{$operario['idusuario']}}">{{$operario["nombre"]}}</option>
                     @endforeach
                 </select>
                 {!!$error->ErrorFormateado('operario')!!}

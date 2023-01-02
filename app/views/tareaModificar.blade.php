@@ -91,9 +91,9 @@
                     <option disabled>Selecciona operario</option>
                     @foreach ($operarios as $operario)
                     @if($tarea['operario'] == $operario["idusuario"])
-                    <option value="{{$operario['idusuario']}}" selected> {{$operario["nombre"]}}</option>
+                    <option value="{{$operario['idusuario']}}" selected>{{$operario["nombre"]}}</option>
                     @else
-                    <option value="{{$operario['idusuario']}}"> {{$operario["nombre"]}}</option>
+                    <option value="{{$operario['idusuario']}}">{{$operario["nombre"]}}</option>
                     @endif
                     @endforeach
                 </select>
@@ -116,7 +116,8 @@
 
                 <label class="form-label">Fotos del trabajo</label><br>
                 <input type="file" name="fotos" class="form-control form-control-sm" id="formFileMultiple" multiple><br><br><br> -->
-                <br><input class="btn btn-primary" type="submit" value="Confirmar Cambios" id="añadir">
+                <br><input class="btn btn-success" type="submit" value="Confirmar Cambios" id="añadir">
+                <br><a href="index.php?controller=tareas&action=ver&id={{$tarea['idtarea']}}" class="btn btn-danger" role="button">Cancelar Cambios</a>
             </div>
         </div>
 

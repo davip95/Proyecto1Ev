@@ -32,7 +32,7 @@
             <td>
                 <a href="index.php?controller=tareas&action=ver&id=<?php echo e($tarea['idtarea']); ?>" class="btn btn-info" role="button">Detalles</a>
                 <a href="index.php?controller=tareas&action=editar&id=<?php echo e($tarea['idtarea']); ?>" class="btn btn-warning" role="button">Editar</a>
-                <a href="" class="btn btn-danger" role="button">Borrar</a>
+                <a href="index.php?controller=tareas&action=confirmaEliminar&id=<?php echo e($tarea['idtarea']); ?>" class="btn btn-danger" role="button">Borrar</a>
             </td>
         </tr>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

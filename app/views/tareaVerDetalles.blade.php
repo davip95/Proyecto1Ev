@@ -60,7 +60,7 @@
                 <a href="" class="btn btn-success" role="button">Completar</a>
                 @endif
                 <a href="index.php?controller=tareas&action=editar&id={{$tarea['idtarea']}}" class="btn btn-warning" role="button">Editar</a>
-                <a href="" class="btn btn-danger" role="button">Borrar</a>
+                <a href="index.php?controller=tareas&action=confirmaEliminar&id={{$tarea['idtarea']}}" class="btn btn-danger" role="button">Borrar</a>
             </td>
         </tr>
     </tbody>

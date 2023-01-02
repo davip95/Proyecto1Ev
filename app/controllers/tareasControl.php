@@ -66,9 +66,9 @@ function crear()
             $idTarea = $tar->insertaTarea($datosTarea);
             if ($idTarea) {
                 $tarea = $tar->getTarea($idTarea);
-                echo $blade->render('tareasVerDetalles', ['tarea' => $tarea,]);
+                echo $blade->render('tareaVerDetalles', ['tarea' => $tarea,]);
             } else
-                die('Error. La tarea no pudo insertarse.');;
+                die('Error. La tarea no pudo insertarse.');
         }
     } else {
         // Creo un gestor de errores vacio para enviarlo a la plantilla de blade que necesita siempre una variable $error aunque no los haya
@@ -211,7 +211,7 @@ function ver()
     $idTarea = $_GET["id"];
     $tar = new Tareas();
     $tarea = $tar->getTarea($idTarea);
-    echo $blade->render('tareasVerDetalles', ['tarea' => $tarea]);
+    echo $blade->render('tareaVerDetalles', ['tarea' => $tarea]);
 }
 
 /**
@@ -257,15 +257,49 @@ function editar()
             ]);
         } else {
             // Si se edita correctamente la tarea, muestro la vista de los detalles de la tarea
-            if ($tar->editaTarea($tarea)) {
+            $datosTarea = $_POST;
+            if ($tar->editaTarea($datosTarea, $idTarea)) {
                 $tarea = $tar->getTarea($idTarea);
-                echo $blade->render('tareasVerDetalles', ['tarea' => $tarea]);
+                echo $blade->render('tareaVerDetalles', ['tarea' => $tarea]);
             } else
-                die('Error. La tarea no pudo insertarse.');;
+                die('Error. La tarea no pudo insertarse.');
         }
     } else {
-        echo $blade->render('tareaAñadir', [
+        echo $blade->render('tareaModificar', [
             'tarea' => $tarea, 'error' => $error, 'operarios' => $ops, 'provincias' => $provs
         ]);
     }
+}
+
+/**
+ * confirmaEliminar: muestra la tarea cuyo id se obtiene de la url para ver todos sus detalles y confirmar o no su borrado
+ *
+ * @return void
+ */
+function confirmaEliminar()
+{
+    include(APP_PATH . 'models/varios.php');
+    require(APP_PATH . "models/baseDatosTareasModel.php");
+    $idTarea = $_GET["id"];
+    $tar = new Tareas();
+    $tarea = $tar->getTarea($idTarea);
+    echo $blade->render('tareaEliminar', ['tarea' => $tarea]);
+}
+
+/**
+ * eliminarTarea: elimina la tarea cuyo id se obtiene de la url y muestra mensaje confirmando el borrado
+ *
+ * @return void
+ */
+function eliminarTarea()
+{
+    include(APP_PATH . 'models/varios.php');
+    require(APP_PATH . "models/baseDatosTareasModel.php");
+    $idTarea = $_GET["id"];
+    $tar = new Tareas();
+    $eliminada = $tar->eliminaTarea($idTarea);
+    if ($eliminada) {
+        echo $blade->render('tareaEliminada');
+    } else
+        die('Error. La tarea no pudo eliminarse.');
 }

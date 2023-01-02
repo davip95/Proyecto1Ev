@@ -110,20 +110,35 @@ class Tareas
      * editaTarea: modifica en la base de datos la tarea que se pasa como parametro. Si el update se ejecuta correctamente devuelve true, sino devuelve false
      *
      * @param  mixed $datosTarea
+     * @param  int $idTarea
      * @return boolean
      */
-    public function editaTarea($datosTarea)
+    public function editaTarea($datosTarea, $idTarea)
     {
         $data = Database::getInstance();
-        $datos = "'" . $datosTarea['dni'] . "','" . $datosTarea['nombre'] . "','" . $datosTarea['apellidos'] . "','" . $datosTarea['telefono'] . "','"
-            . $datosTarea['descripcion'] . "','" . $datosTarea['correo'] . "','" . $datosTarea['direccion'] . "','" . $datosTarea['poblacion'] . "','"
-            . $datosTarea['codpostal'] . "','" . $datosTarea['provincia'] . "','" . $datosTarea['estado'] . "','" . $datosTarea['fechacreacion'] . "','"
-            . $datosTarea['operario'] . "','" . $datosTarea['fechafin'] . "','" . $datosTarea['anotaantes'] . "','" . $datosTarea['anotapost'] . "'";
-        $stm = $data->dbh->query("INSERT INTO tareas VALUES(NULL," . $datos . ")");
+        $datos = "dni='" . $datosTarea['dni'] . "', nombre='" . $datosTarea['nombre'] . "', apellidos='" . $datosTarea['apellidos'] . "', telefono='" . $datosTarea['telefono'] .
+            "', descripcion='" . $datosTarea['descripcion'] . "', correo='" . $datosTarea['correo'] . "', direccion='" . $datosTarea['direccion'] . "', poblacion='" . $datosTarea['poblacion'] .
+            "', codpostal='" . $datosTarea['codpostal'] . "', provincia='" . $datosTarea['provincia'] . "', estado='" . $datosTarea['estado'] . "', fechacreacion='" . $datosTarea['fechacreacion'] .
+            "', idusuario='" . $datosTarea['operario'] . "', fechafin='" . $datosTarea['fechafin'] . "', anotaantes='" . $datosTarea['anotaantes'] . "', anotapost='" . $datosTarea['anotapost'] . "'";
+        $stm = $data->dbh->query("UPDATE tareas SET $datos WHERE idtarea =" . $idTarea . "");
         if ($stm) {
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * eliminaTarea: elimina la tarea cuyo ID se pasa como parámetro de la base de datos
+     *
+     * @param  int $idTarea
+     * @return boolean
+     */
+    public function eliminaTarea($idTarea)
+    {
+        $data = Database::getInstance();
+        $stm = $data->dbh->prepare("DELETE FROM tareas WHERE idtarea= ?;");
+        $res = $stm->execute([$idTarea]);
+        return $res;
     }
 }
