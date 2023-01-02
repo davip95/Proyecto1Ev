@@ -57,7 +57,7 @@
             <td>
                 <!-- Solo muestro el boton de completar si la tarea no está realizada -->
                 <?php if($tarea['estado'] != 'R'): ?>
-                <a href="" class="btn btn-success" role="button">Completar</a>
+                <a href="index.php?controller=tareas&action=completaTarea&id=<?php echo e($tarea['idtarea']); ?>" class="btn btn-success" role="button">Completar</a>
                 <?php endif; ?>
                 <a href="index.php?controller=tareas&action=editar&id=<?php echo e($tarea['idtarea']); ?>" class="btn btn-warning" role="button">Editar</a>
                 <a href="index.php?controller=tareas&action=confirmaEliminar&id=<?php echo e($tarea['idtarea']); ?>" class="btn btn-danger" role="button">Borrar</a>

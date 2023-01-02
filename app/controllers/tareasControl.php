@@ -53,7 +53,7 @@ function crear()
     $ops = listarOperarios();
     $provs = listarProvincias();
     if ($_POST) {
-        $error = filtrar($_POST['fechacreacion'], "crear");
+        $error = validar($_POST['fechacreacion'], "crear");
         //Si hay algún error, muestro de nuevo el formulario con un mensaje de error en cada campo que tenga error
         if ($error->HayErrores()) {
             echo $blade->render('tareaAñadir', [
@@ -80,14 +80,14 @@ function crear()
 }
 
 /**
- * filtrar: funcion que filtra todos los campos del formulario de la tarea y devuelve el objeto GestorErrores con 
+ * validar: funcion que filtra todos los campos del formulario de la tarea y devuelve el objeto GestorErrores con 
  * los mensajes de error de cada campo si existen
  *
  * @param DateTime $fecha: parametro que será la fecha actual en el caso de creación de tarea o la fecha almacenada en el caso de modificación
  * @param string $tipo: si es modificar, indica que el filtrado es para una modificacion de la tarea. Si es crear, es para una creacion
  * @return object $error 
  */
-function filtrar($fecha, $tipo)
+function validar($fecha, $tipo)
 {
     include_once(APP_PATH . "models/GestorErrores.php");
     include(APP_PATH . "models/filtroCodPostal.php");
@@ -248,7 +248,7 @@ function editar()
     $tarea = $tar->getTarea($idTarea);
     $ops = listarOperarios();
     $provs = listarProvincias();
-    $error = filtrar($tarea['fechacreacion'], 'modificar');
+    $error = validar($tarea['fechacreacion'], 'modificar');
     if ($_POST) {
         //Si hay algún error, muestro de nuevo el formulario con un mensaje de error en cada campo que tenga error
         if ($error->HayErrores()) {
@@ -302,4 +302,53 @@ function eliminarTarea()
         echo $blade->render('tareaEliminada');
     } else
         die('Error. La tarea no pudo eliminarse.');
+}
+
+function completaTarea()
+{
+    include(APP_PATH . "models/filtroVacio.php");
+    include(APP_PATH . "models/filtroRadio.php");
+    include(APP_PATH . "models/filtroFechaRealizacion.php");
+    include(APP_PATH . "models/GestorErrores.php");
+    include(APP_PATH . 'models/varios.php');
+    require(APP_PATH . "models/baseDatosTareasModel.php");
+    $idTarea = $_GET["id"];
+    $tar = new Tareas();
+    $tarea = $tar->getTarea($idTarea);
+    $error = new GestorErrores('<span style="color:red">', '</span>');
+    if ($_POST) {
+        // AQUI VALIDO EL ESTADO Y LA FECHA DE REALIZACION
+        if (!estaMarcado('estado')) {
+            $error->AnotaError('estado', 'Debe seleccionar un estado.');
+        }
+        if (estaMarcado('estado') && $_POST['estado'] != 'R') {
+            $error->AnotaError('estado', 'Para completar la tarea, el estado debe ser Realizada (R).');
+        }
+        if (estaVacio($_POST['fechafin'])) {
+            $error->AnotaError('fechafin', 'Debe introducir una fecha de realización para completar la tarea.');
+        }
+        if (!estaVacio($_POST['fechafin']) && !validaFechaRealizacion($_POST['fechafin'], $tarea['fechacreacion'])) {
+            $error->AnotaError('fechafin', 'La fecha de realización debe ser posterior a la de creación.');
+        }
+        //Si hay algún error, muestro de nuevo el formulario con un mensaje de error en cada campo que tenga error
+        if ($error->HayErrores()) {
+            echo $blade->render('tareaCompletar', [
+                'tarea' => $tarea, 'error' => $error
+            ]);
+        } else {
+            // Si se completa correctamente la tarea, muestro la vista de los detalles de la tarea
+            $datosTarea = $_POST;
+            if ($tar->completarTarea($datosTarea, $idTarea)) {
+                $tarea = $tar->getTarea($idTarea);
+                echo $blade->render('tareaVerDetalles', ['tarea' => $tarea]);
+            } else
+                die('Error. La tarea no pudo insertarse.');
+        }
+    } else {
+        // Creo un gestor de errores vacio para enviarlo a la plantilla de blade que necesita siempre una variable $error aunque no los haya
+        $error = new GestorErrores('<span style="color:red">', '</span>');
+        echo $blade->render('tareaCompletar', [
+            'tarea' => $tarea, 'error' => $error
+        ]);
+    }
 }

@@ -141,4 +141,24 @@ class Tareas
         $res = $stm->execute([$idTarea]);
         return $res;
     }
+
+    /**
+     * completarTarea: actualiza el estado, la fecha de realización y las anotaciones posteriores (si las hubiese) para completar
+     * una tarea
+     *
+     * @param  mixed $datosTarea
+     * @param  int $idTarea
+     * @return void
+     */
+    public function completarTarea($datosTarea, $idTarea)
+    {
+        $data = Database::getInstance();
+        $datos = "estado='" . $datosTarea['estado'] . "', fechafin='" . $datosTarea['fechafin'] . "', anotapost='" . $datosTarea['anotapost'] . "'";
+        $stm = $data->dbh->query("UPDATE tareas SET $datos WHERE idtarea =" . $idTarea . "");
+        if ($stm) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -5,6 +5,7 @@
  * fecha de creacion
  *
  * @param  mixed $fecha
+ * @param  mixed $fechaCreacion
  * @return boolean
  */
 function validaFechaRealizacion($fecha, $fechaCreacion)
