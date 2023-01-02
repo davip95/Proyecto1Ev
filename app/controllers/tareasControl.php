@@ -287,7 +287,7 @@ function confirmaEliminar()
 }
 
 /**
- * eliminarTarea: elimina la tarea cuyo id se obtiene de la url y muestra mensaje confirmando el borrado
+ * eliminarTarea: elimina los archivos asociados a la tarea y la tarea cuyo id se obtiene de la url y muestra mensaje confirmando el borrado
  *
  * @return void
  */
@@ -297,15 +297,27 @@ function eliminarTarea()
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $idTarea = $_GET["id"];
     $tar = new Tareas();
-    $eliminada = $tar->eliminaTarea($idTarea);
-    if ($eliminada) {
-        echo $blade->render('tareaEliminada');
+    $eliminaArchivos = $tar->eliminaArchivos($idTarea);
+    if ($eliminaArchivos) {
+        $eliminada = $tar->eliminaTarea($idTarea);
+        if ($eliminada) {
+            echo $blade->render('tareaEliminada');
+        } else
+            die('Error. La tarea no pudo eliminarse.');
     } else
-        die('Error. La tarea no pudo eliminarse.');
+        die('Error. Los archivos no pudieron eliminarse.');
 }
 
+/**
+ * completaTarea: funcion que valida el formulario de completar tarea
+ * Si pasa la validacion, modifica la tarea en la base de datos y la muestra en detalle
+ * Si no, vuelve a mostrar el formulario con errores
+ *
+ * @return void
+ */
 function completaTarea()
 {
+    include(APP_PATH . "models/guardaArchivo.php");
     include(APP_PATH . "models/filtroVacio.php");
     include(APP_PATH . "models/filtroRadio.php");
     include(APP_PATH . "models/filtroFechaRealizacion.php");
@@ -336,8 +348,20 @@ function completaTarea()
                 'tarea' => $tarea, 'error' => $error
             ]);
         } else {
-            // Si se completa correctamente la tarea, muestro la vista de los detalles de la tarea
+            // Si se completa correctamente la tarea, guardo los archivos adjuntos si los hay y muestro la vista de los detalles de la tarea
             $datosTarea = $_POST;
+            if ($_FILES['fichero']['name'] != '') {
+                guardarArchivo($idTarea, 'fichero');
+                $datosTarea['fichero'] = $idTarea . "_" . $_FILES['fichero']['name'];
+            } else {
+                $datosTarea['fichero'] = '';
+            }
+            if ($_FILES['foto']['name'] != '') {
+                guardarArchivo($idTarea, 'foto');
+                $datosTarea['foto'] = $idTarea . "_" . $_FILES['foto']['name'];
+            } else {
+                $datosTarea['foto'] = '';
+            }
             if ($tar->completarTarea($datosTarea, $idTarea)) {
                 $tarea = $tar->getTarea($idTarea);
                 echo $blade->render('tareaVerDetalles', ['tarea' => $tarea]);

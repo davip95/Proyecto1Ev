@@ -14,6 +14,7 @@
             <th>Correo</th>
             <th>Direccion</th>
             <th>Población</th>
+            <th>Código Postal</th>
         </tr>
     </thead>
     <tbody>
@@ -27,13 +28,13 @@
             <td>{{$tarea['correo']}}</td>
             <td>{{$tarea['direccion']}}</td>
             <td>{{$tarea['poblacion']}}</td>
+            <td>{{$tarea['codpostal']}}</td>
         </tr>
     </tbody>
 </table>
 <table class="table table-bordered table-responsive table-condensed" id="listaTareas">
     <thead class="table-dark">
         <tr>
-            <th>Código Postal</th>
             <th>Provincia</th>
             <th>Estado</th>
             <th>ID Operario</th>
@@ -41,12 +42,13 @@
             <th>Fecha Realización</th>
             <th>Anotaciones Anteriores</th>
             <th>Anotaciones Posteriores</th>
+            <th>Fichero Adjunto</th>
+            <th>Foto Adjunta</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>{{$tarea['codpostal']}}</td>
             <td>{{$tarea['provincia']}}</td>
             <td>{{$tarea['estado']}}</td>
             <td>{{$tarea['idusuario']}}</td>
@@ -54,6 +56,16 @@
             <td>{{$tarea['fechafin']}}</td>
             <td>{{$tarea['anotaantes']}}</td>
             <td>{{$tarea['anotapost']}}</td>
+            <td>{{$tarea['fichero']}} <br>
+                @if($tarea['fichero'] != '' && $tarea['fichero'] != NULL)
+                <a class='btn btn-primary' href="<?= BASE_URL . "archivos/" . $tarea['fichero'] ?>" download>Descargar</a>
+                @endif
+            </td>
+            <td>{{$tarea['foto']}} <br>
+                @if($tarea['foto'] != '' && $tarea['foto'] != NULL)
+                <a class='btn btn-primary' href="<?= BASE_URL . "archivos/" . $tarea['foto'] ?>" download>Descargar</a>
+                @endif
+            </td>
             <td>
                 <!-- Solo muestro el boton de completar si la tarea no está realizada -->
                 @if($tarea['estado'] != 'R')

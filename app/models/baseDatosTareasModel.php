@@ -98,7 +98,7 @@ class Tareas
             . $datosTarea['descripcion'] . "','" . $datosTarea['correo'] . "','" . $datosTarea['direccion'] . "','" . $datosTarea['poblacion'] . "','"
             . $datosTarea['codpostal'] . "','" . $datosTarea['provincia'] . "','" . $datosTarea['estado'] . "','" . $datosTarea['fechacreacion'] . "','"
             . $datosTarea['operario'] . "','" . $datosTarea['fechafin'] . "','" . $datosTarea['anotaantes'] . "','" . $datosTarea['anotapost'] . "'";
-        $stm = $data->dbh->query("INSERT INTO tareas VALUES(NULL," . $datos . ")");
+        $stm = $data->dbh->query('INSERT INTO tareas VALUES(NULL,' . $datos . ',NULL,NULL)');
         if ($stm) {
             return $data->dbh->lastInsertId();
         } else {
@@ -129,6 +129,44 @@ class Tareas
     }
 
     /**
+     * eliminaArchivos: funcion que obtiene los datos de la tarea para saber los nombres de los archivos a eliminar y los elimina
+     *
+     * @param  int $idTarea
+     * @return boolean
+     */
+    public function eliminaArchivos($idTarea)
+    {
+        $tarea = $this->getTarea($idTarea);
+        // Si no existe fichero pero si foto, elimino solo la foto
+        if (($tarea['fichero'] == NULL || $tarea['fichero'] == '') && ($tarea['foto'] != NULL && $tarea['foto'] != '')) {
+            if (unlink(APP_PATH . "archivos/" . $tarea['foto'])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        // Si no existe foto pero si fichero, elimino solo el fichero
+        if (($tarea['fichero'] != NULL && $tarea['fichero'] != '') && ($tarea['foto'] == NULL || $tarea['foto'] == '')) {
+            if (unlink(APP_PATH . "archivos/" . $tarea['fichero'])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        // Si existen ambos, elimino ambos
+        if (($tarea['fichero'] != NULL && $tarea['fichero'] != '') && ($tarea['foto'] != NULL && $tarea['foto'] != '')) {
+            if (unlink(APP_PATH . "archivos/" . $tarea['fichero']) && unlink(APP_PATH . "archivos/" . $tarea['foto'])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        // Si no existe ninguno, no se elimina nada
+        if (($tarea['fichero'] == NULL || $tarea['fichero'] == '') && ($tarea['foto'] == NULL || $tarea['foto'] == ''))
+            return true;
+    }
+
+    /**
      * eliminaTarea: elimina la tarea cuyo ID se pasa como parámetro de la base de datos
      *
      * @param  int $idTarea
@@ -153,7 +191,8 @@ class Tareas
     public function completarTarea($datosTarea, $idTarea)
     {
         $data = Database::getInstance();
-        $datos = "estado='" . $datosTarea['estado'] . "', fechafin='" . $datosTarea['fechafin'] . "', anotapost='" . $datosTarea['anotapost'] . "'";
+        $datos = "estado='" . $datosTarea['estado'] . "', fechafin='" . $datosTarea['fechafin'] . "', anotapost='" . $datosTarea['anotapost'] .
+            "', fichero='" . $datosTarea['fichero'] . "', foto='" . $datosTarea['foto'] . "'";
         $stm = $data->dbh->query("UPDATE tareas SET $datos WHERE idtarea =" . $idTarea . "");
         if ($stm) {
             return true;

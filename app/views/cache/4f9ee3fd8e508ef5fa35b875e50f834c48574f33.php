@@ -14,6 +14,7 @@
             <th>Correo</th>
             <th>Direccion</th>
             <th>Población</th>
+            <th>Código Postal</th>
         </tr>
     </thead>
     <tbody>
@@ -27,13 +28,13 @@
             <td><?php echo e($tarea['correo']); ?></td>
             <td><?php echo e($tarea['direccion']); ?></td>
             <td><?php echo e($tarea['poblacion']); ?></td>
+            <td><?php echo e($tarea['codpostal']); ?></td>
         </tr>
     </tbody>
 </table>
 <table class="table table-bordered table-responsive table-condensed" id="listaTareas">
     <thead class="table-dark">
         <tr>
-            <th>Código Postal</th>
             <th>Provincia</th>
             <th>Estado</th>
             <th>ID Operario</th>
@@ -41,11 +42,12 @@
             <th>Fecha Realización</th>
             <th>Anotaciones Anteriores</th>
             <th>Anotaciones Posteriores</th>
+            <th>Fichero Adjunto</th>
+            <th>Foto Adjunta</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td><?php echo e($tarea['codpostal']); ?></td>
             <td><?php echo e($tarea['provincia']); ?></td>
             <td><?php echo e($tarea['estado']); ?></td>
             <td><?php echo e($tarea['idusuario']); ?></td>
@@ -53,6 +55,16 @@
             <td><?php echo e($tarea['fechafin']); ?></td>
             <td><?php echo e($tarea['anotaantes']); ?></td>
             <td><?php echo e($tarea['anotapost']); ?></td>
+            <td><?php echo e($tarea['fichero']); ?> <br>
+                <?php if($tarea['fichero'] != '' && $tarea['fichero'] != NULL): ?>
+                <a class='btn btn-primary' href="<?= BASE_URL . "archivos/" . $tarea['fichero'] ?>" download>Descargar</a>
+                <?php endif; ?>
+            </td>
+            <td><?php echo e($tarea['foto']); ?> <br>
+                <?php if($tarea['foto'] != '' && $tarea['foto'] != NULL): ?>
+                <a class='btn btn-primary' href="<?= BASE_URL . "archivos/" . $tarea['foto'] ?>" download>Descargar</a>
+                <?php endif; ?>
+            </td>
         </tr>
     </tbody>
 </table>

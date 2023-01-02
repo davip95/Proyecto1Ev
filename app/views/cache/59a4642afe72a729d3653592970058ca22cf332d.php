@@ -116,10 +116,10 @@
                 <textarea name="anotapost" class="form-control form-control-sm" cols="10" rows="1"><?php echo e($tarea['anotapost']); ?></textarea><br>
 
                 <!-- <label class="form-label">Fichero resumen</label><br>
-                <input type="file" name="ficheroresumen" class="form-control form-control-sm" id="formFileSm"><br>
+                <input type="file" name="fichero" class="form-control form-control-sm" id="formFileSm"><br>
 
-                <label class="form-label">Fotos del trabajo</label><br>
-                <input type="file" name="fotos" class="form-control form-control-sm" id="formFileMultiple" multiple><br><br><br> -->
+                <label class="form-label">Foto del trabajo</label><br>
+                <input type="file" name="foto" class="form-control form-control-sm" id="formFileSm"><br><br><br> -->
                 <br><input class="btn btn-success" type="submit" value="Confirmar Cambios" id="añadir">
                 <br><a href="index.php?controller=tareas&action=ver&id=<?php echo e($tarea['idtarea']); ?>" class="btn btn-danger" role="button">Cancelar Cambios</a>
             </div>

@@ -89,10 +89,10 @@
                 <textarea name="anotapost" class="form-control form-control-sm" cols="10" rows="1"><?= isset($_POST['anotapost']) ? $_POST['anotapost'] : '' ?></textarea><br>
 
                 <!-- <label class="form-label">Fichero resumen</label><br>
-                <input type="file" name="ficheroresumen" class="form-control form-control-sm" id="formFileSm"><br>
+                <input type="file" name="fichero" class="form-control form-control-sm" id="formFileSm"><br>
 
-                <label class="form-label">Fotos del trabajo</label><br>
-                <input type="file" name="fotos" class="form-control form-control-sm" id="formFileMultiple" multiple><br><br><br> -->
+                <label class="form-label">Foto del trabajo</label><br>
+                <input type="file" name="foto" class="form-control form-control-sm" id="formFileSm"><br><br><br> -->
                 <br><input class="btn btn-primary" type="submit" value="Añadir Tarea" id="añadir">
             </div>
         </div>
