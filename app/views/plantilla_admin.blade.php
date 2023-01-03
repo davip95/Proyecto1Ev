@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<?= BASE_URL . "Assets/css/nuevaTarea.css" ?>">
     <link rel="stylesheet" href="<?= BASE_URL . "Assets/css/verTareas.css" ?>">
     <link rel="stylesheet" href="<?= BASE_URL . "Assets/css/eliminarTarea.css" ?>">
+    <link rel="stylesheet" href="<?= BASE_URL . "Assets/css/verTareasBuscadas.css" ?>">
 </head>
 
 <body>
@@ -25,13 +26,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto botonesCabecera">
                     <li class="nav-item">
-                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=listar" role="button">Ver Tareas</a>
+                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=listar" role="button"><i class="bi bi-list-task"></i> Ver Tareas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=crear" role="button">Añadir Tarea</a>
+                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=crear" role="button"><i class="bi bi-clipboard2-plus"></i> Añadir Tarea</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=verPendientes" role="button">Tareas Pendientes</a>
+                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=verPendientes" role="button"><i class="bi bi-clock-history"></i> Tareas Pendientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=buscar" role="button"><i class="bi bi-search"></i> Buscar Tareas</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

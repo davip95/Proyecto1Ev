@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('cuerpo'); ?>
-<h1>Tarea Eliminada</h1>
+<h1>Tarea <?php echo e($idTarea); ?> Eliminada</h1>
 <br>
 <div class="alert alert-danger aletarborrar" role="alert"><strong>La tarea ha sido eliminada correctamente.</strong></div>
 <h5><a href="index.php?controller=tareas&action=listar" class="btn btn-primary" role="button">Ir a Listado</a></h5>

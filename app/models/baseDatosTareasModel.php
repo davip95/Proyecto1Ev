@@ -200,4 +200,60 @@ class Tareas
             return false;
         }
     }
+
+
+    /**
+     * getTareasPagsFiltro: devuelve un array en el que se guarda un array con la informacion de cada tarea que aparece en la pagina que se esta viendo,
+     * el numero de tareas por pagina y la pagina actual. Las tareas son las que cumplen las condiciones de la consulta parametro.
+     *
+     * @param  string $consulta
+     * @return array
+     */
+    public function getTareasPagsFiltro($consulta)
+    {
+        $data = Database::getInstance();
+        $tareasPorPagina = 5;
+        // Por defecto es la página 1 pero si está presente en la URL, se toma esa
+        $pagina = 1;
+        if (isset($_GET["pagina"])) {
+            $pagina = $_GET["pagina"];
+        }
+        // El límite es el número de tareas por página
+        $limit = $tareasPorPagina;
+        # El offset es saltar X tareas que viene dado por multiplicar la página - 1 * las tareas por página
+        $offset = ($pagina - 1) * $tareasPorPagina;
+        $consultaFinal = $consulta . " ORDER BY fechacreacion DESC";
+        //" ORDER BY fechacreacion DESC LIMIT $limit OFFSET $offset";
+
+        $stm = $data->dbh->query($consultaFinal);
+        $tareas = array();
+        while ($tarea = $stm->fetch()) {
+            // Paso las fechas a formato español antes de guardarlas para mostrarlas con blade
+            $tarea['fechacreacion'] = date("d/m/Y", strtotime($tarea['fechacreacion']));
+            if ($tarea['fechafin'] != "") {
+                $tarea['fechafin'] = date("d/m/Y", strtotime($tarea['fechafin']));
+            }
+            $tareas[] = $tarea;
+        }
+        return [$tareas, $tareasPorPagina, $pagina];
+    }
+
+
+    /**
+     * conteoTareasFiltro: obtiene el numero de tareas que cumplen las condiciones de la consulta y las divide entre las tareas 
+     * por paginas para obtener las paginas totales para la paginacion. Devuelve el numero de paginas y el numero de tareas.
+     *
+     * @param  string $consulta
+     * @return array
+     */
+    public function conteoTareasFiltro($consulta)
+    {
+        $tareasPorPagina = 5;
+        $data = Database::getInstance();
+        $stm = $data->dbh->query($consulta);
+        $conteo = $stm->fetchObject()->conteo;
+        // Para obtener las páginas dividimos el conteo entre los productos por página, y redondeamos hacia arriba
+        $paginas = ceil($conteo / $tareasPorPagina);
+        return [$paginas, $conteo];
+    }
 }

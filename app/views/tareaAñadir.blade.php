@@ -39,7 +39,11 @@
                 <select class="form-select form-select-lg" name="provincia">
                     <option disabled selected>Selecciona provincia</option>
                     @foreach ($provincias as $provincia)
-                    <option value="{{$provincia['nombre']}}"> {{$provincia["nombre"]}}</option>
+                    @if($_POST['provincia'] == $provincia['nombre'])
+                    <option value="{{$provincia['nombre']}}" selected>{{$provincia["nombre"]}}</option>
+                    @else
+                    <option value="{{$provincia['nombre']}}">{{$provincia["nombre"]}}</option>
+                    @endif
                     @endforeach
                 </select>
                 {!!$error->ErrorFormateado('provincia')!!}
@@ -48,7 +52,6 @@
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="estado" id="espera" value="B" <?= isset($_POST['estado']) && $_POST['estado'] == 'B' ? 'checked' : '' ?>>
                     <label class="form-check-label" for="espera">B</label>
-
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="estado" id="pendiente" value="P" <?= isset($_POST['estado']) && $_POST['estado'] == 'P' ? 'checked' : '' ?>>
@@ -71,7 +74,11 @@
                 <select class="form-select form-select-lg" name="operario">
                     <option disabled selected>Selecciona operario</option>
                     @foreach ($operarios as $operario)
+                    @if($_POST['operario'] == $operario['idusuario'])
+                    <option value="{{$operario['idusuario']}}" selected>{{$operario["nombre"]}}</option>
+                    @else
                     <option value="{{$operario['idusuario']}}">{{$operario["nombre"]}}</option>
+                    @endif
                     @endforeach
                 </select>
                 {!!$error->ErrorFormateado('operario')!!}

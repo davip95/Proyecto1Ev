@@ -40,7 +40,11 @@
                 <select class="form-select form-select-lg" name="provincia">
                     <option disabled selected>Selecciona provincia</option>
                     <?php $__currentLoopData = $provincias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $provincia): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <option value="<?php echo e($provincia['nombre']); ?>"> <?php echo e($provincia["nombre"]); ?></option>
+                    <?php if($_POST['provincia'] == $provincia['nombre']): ?>
+                    <option value="<?php echo e($provincia['nombre']); ?>" selected><?php echo e($provincia["nombre"]); ?></option>
+                    <?php else: ?>
+                    <option value="<?php echo e($provincia['nombre']); ?>"><?php echo e($provincia["nombre"]); ?></option>
+                    <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
                 <?php echo $error->ErrorFormateado('provincia'); ?>
@@ -74,7 +78,11 @@
                 <select class="form-select form-select-lg" name="operario">
                     <option disabled selected>Selecciona operario</option>
                     <?php $__currentLoopData = $operarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $operario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if($_POST['operario'] == $operario['idusuario']): ?>
+                    <option value="<?php echo e($operario['idusuario']); ?>" selected><?php echo e($operario["nombre"]); ?></option>
+                    <?php else: ?>
                     <option value="<?php echo e($operario['idusuario']); ?>"><?php echo e($operario["nombre"]); ?></option>
+                    <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
                 <?php echo $error->ErrorFormateado('operario'); ?>

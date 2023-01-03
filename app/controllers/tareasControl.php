@@ -301,7 +301,7 @@ function eliminarTarea()
     if ($eliminaArchivos) {
         $eliminada = $tar->eliminaTarea($idTarea);
         if ($eliminada) {
-            echo $blade->render('tareaEliminada');
+            echo $blade->render('tareaEliminada', ['idTarea' => $idTarea]);
         } else
             die('Error. La tarea no pudo eliminarse.');
     } else
@@ -374,5 +374,120 @@ function completaTarea()
         echo $blade->render('tareaCompletar', [
             'tarea' => $tarea, 'error' => $error
         ]);
+    }
+}
+
+/**
+ * buscar: se filtra el formulario de busqueda. Si hay errores, se vuelve a mostrar con éstos y si no los hay, se prepara la 
+ * consulta para visualizar las tareas resultado de la búsqueda
+ *
+ * @return void
+ */
+function buscar()
+{
+    include(APP_PATH . "models/GestorErrores.php");
+    include(APP_PATH . 'models/baseDatosTareasModel.php');
+    include_once(APP_PATH . 'models/varios.php');
+    $error = new GestorErrores('<span style="color:red">', '</span>');
+    if ($_POST) {
+        // Variable que me indica si cada fila de busqueda se ha rellenado correctamente
+        $buscar = [false, false, false];
+        // Valido que se ha seleccionado una opcion de radio
+        if (!isset($_POST['oplogico'])) {
+            $error->AnotaError('oplogico', 'Debe seleccionar un tipo de cumplimiento de condiciones.');
+        }
+        // Valido que ha seleccionado un campo al menos
+        if (!isset($_POST['campo1']) && !isset($_POST['campo2']) && !isset($_POST['campo3'])) {
+            $error->AnotaError('campo', 'Debe seleccionar un campo al menos.');
+        }
+        // Si se ha seleccionado un campo, compruebo que se ha seleccionado su criterio y que su valor no está vacío
+        if (isset($_POST['campo1'])) {
+            if (!isset($_POST['criterio1']) || empty($_POST['valor1'])) {
+                $error->AnotaError('criteriovalor', 'Debe seleccionar un criterio y un valor si ha seleccionado un campo.');
+            }
+            if (isset($_POST['criterio1']) && !empty($_POST['valor1'])) {
+                // Compruebo que el valor introducido es numérico
+                if (is_numeric($_POST['valor1']))
+                    $buscar[0] = true;
+                else
+                    $error->AnotaError('valor', 'El valor introducido debe ser un número');
+            }
+        }
+        if (isset($_POST['campo2'])) {
+            if (!isset($_POST['criterio2']) || empty($_POST['valor2'])) {
+                $error->AnotaError('criteriovalor', 'Debe seleccionar un criterio y un valor si ha seleccionado un campo.');
+            }
+            if (isset($_POST['criterio2']) && !empty($_POST['valor2'])) {
+                // Compruebo que el valor introducido es numérico
+                if (is_numeric($_POST['valor2']))
+                    $buscar[1] = true;
+                else
+                    $error->AnotaError('valor', 'El valor introducido debe ser un número');
+            }
+        }
+        if (isset($_POST['campo3'])) {
+            if (!isset($_POST['criterio3']) || empty($_POST['valor3'])) {
+                $error->AnotaError('criteriovalor', 'Debe seleccionar un criterio y un valor si ha seleccionado un campo.');
+            }
+            if (isset($_POST['criterio3']) && !empty($_POST['valor3'])) {
+                // Compruebo que el valor introducido es numérico
+                if (is_numeric($_POST['valor3']))
+                    $buscar[2] = true;
+                else
+                    $error->AnotaError('valor', 'El valor introducido debe ser un número');
+            }
+        }
+        //Si hay algún error, muestro de nuevo el formulario con los mensajes de error correspondientes
+        if ($error->HayErrores()) {
+            echo $blade->render('tareasBuscar', ['error' => $error]);
+        } else {
+            // Si no hay errores, genero la consulta y muestro los resultados de busqueda
+            // Preparo la consulta de la base de datos
+            $consulta = "SELECT * FROM tareas WHERE ";
+            $consultaConteo = "SELECT count(*) AS conteo FROM tareas WHERE ";
+            // Hay 7 combinaciones posibles de campos seleccionados como filtros. A continuacion monto la consulta para cada combinacion
+            if ($buscar[0]) {
+                // La primera opcion rellena únicamente
+                $consulta .= $_POST['campo1'] . $_POST['criterio1'] . $_POST["valor1"];
+                $consultaConteo .= $_POST['campo1'] . $_POST['criterio1'] . $_POST["valor1"];
+                if ($buscar[1]) {
+                    if ($buscar[2]) {
+                        // Las tres opciones rellenas
+                        $consulta .= " " . $_POST['oplogico'] . " " . $_POST['campo2'] . $_POST['criterio2'] . $_POST["valor2"] . " " . $_POST['oplogico'] . " " . $_POST['campo3'] . $_POST['criterio3'] . $_POST["valor3"];
+                        $consultaConteo .= " " . $_POST['oplogico'] . " " . $_POST['campo2'] . $_POST['criterio2'] . $_POST["valor2"] . " " . $_POST['oplogico'] . " " . $_POST['campo3'] . $_POST['criterio3'] . $_POST["valor3"];
+                    } else {
+                        // Las dos primeras opciones rellenas
+                        $consulta .= " " . $_POST['oplogico'] . " " . $_POST['campo2'] . $_POST['criterio2'] . $_POST["valor2"];
+                        $consultaConteo .= " " . $_POST['oplogico'] . " " . $_POST['campo2'] . $_POST['criterio2'] . $_POST["valor2"];
+                    }
+                } else if ($buscar[2]) {
+                    // La primera y la ultima opcion rellenas
+                    $consulta .= " " . $_POST['oplogico'] . " " . $_POST['campo3'] . $_POST['criterio3'] . $_POST["valor3"];
+                    $consultaConteo .= " " . $_POST['oplogico'] . " " . $_POST['campo3'] . $_POST['criterio3'] . $_POST["valor3"];
+                }
+            } else if ($buscar[1]) {
+                // La segunda opcion rellena únicamente
+                $consulta .= $_POST['campo2'] . $_POST['criterio2'] . $_POST["valor2"];
+                $consultaConteo .= $_POST['campo2'] . $_POST['criterio2'] . $_POST["valor2"];
+                if ($buscar[3]) {
+                    // La segunda y la última opcion rellenas
+                    $consulta .= " " . $_POST['oplogico'] . " " . $_POST['campo3'] . $_POST['criterio3'] . $_POST["valor3"];
+                    $consultaConteo .= " " . $_POST['oplogico'] . " " . $_POST['campo3'] . $_POST['criterio3'] . $_POST["valor3"];
+                }
+            } else if ($buscar[3]) {
+                // La última opcion rellena únicamente
+                $consulta .= $_POST['campo3'] . $_POST['criterio3'] . $_POST["valor3"];
+                $consultaConteo .= $_POST['campo3'] . $_POST['criterio3'] . $_POST["valor3"];
+            }
+            $tar = new Tareas();
+            list($paginas, $conteo) = $tar->conteoTareasFiltro($consultaConteo);
+            list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPagsFiltro($consulta);
+            echo $blade->render('tareasVerBuscadas', [
+                'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
+                'paginas' => $paginas, 'conteo' => $conteo
+            ]);
+        }
+    } else {
+        echo $blade->render('tareasBuscar', ['error' => $error]);
     }
 }
