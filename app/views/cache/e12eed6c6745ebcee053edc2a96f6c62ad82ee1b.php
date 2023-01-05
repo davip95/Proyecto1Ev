@@ -1,3 +1,13 @@
+<?php
+session_start();
+if ($_SESSION['idx_dentro'] == false || $_SESSION['tipo'] == 'administrador') {
+    session_unset(); // Libera todas las variables de sesión
+    session_destroy(); // Destruimos la sesión
+    header('Location: ' . BASE_URL . 'index.php?controller=login&action=login');
+    // Finalizamos script
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

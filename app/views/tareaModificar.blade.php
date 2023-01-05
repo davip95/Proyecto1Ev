@@ -5,37 +5,37 @@
     <form enctype="multipart/form-data" method="POST">
         <div class="padrecolumnas">
             <div class="columnacampos">
-                <label class="form-label">NIF o CIF</label><br>
+                <label class="form-label">NIF o CIF</label>
                 <input type="text" name="dni" class="form-control form-control-sm" value="{{$tarea['dni']}}">
                 {!!$error->ErrorFormateado('dni')!!}<br>
-                <label class="form-label">Nombre</label><br>
+                <label class="form-label">Nombre</label>
                 <input type="text" name="nombre" class="form-control form-control-sm" value="{{$tarea['nombre']}}">
                 {!!$error->ErrorFormateado('nombre')!!}<br>
-                <label class="form-label">Apellidos</label><br>
+                <label class="form-label">Apellidos</label>
                 <input type="text" name="apellidos" class="form-control form-control-sm" value="{{$tarea['apellidos']}}">
                 {!!$error->ErrorFormateado('apellidos')!!}<br>
-                <label class="form-label">Teléfono contacto</label><br>
+                <label class="form-label">Teléfono contacto</label>
                 <input type="text" name="telefono" class="form-control form-control-sm" value="{{$tarea['telefono']}}">
                 <div class="form-text info">Debe ser de España. Puede separar los dígitos con espacio o guión.</div>
                 {!!$error->ErrorFormateado('telefono')!!}<br>
-                <label class="form-label">Descripción</label><br>
+                <label class="form-label">Descripción</label>
                 <input type="text" name="descripcion" class="form-control form-control-sm" value="{{$tarea['descripcion']}}">
                 {!!$error->ErrorFormateado('descripcion')!!}<br>
-                <label class="form-label">Correo electrónico</label><br>
+                <label class="form-label">Correo electrónico</label>
                 <input type="text" name="correo" class="form-control form-control-sm" value="{{$tarea['correo']}}">
                 {!!$error->ErrorFormateado('correo')!!}
             </div>
             <div class="columnacampos">
-                <label class="form-label">Dirección</label><br>
+                <label class="form-label">Dirección</label>
                 <input type="text" name="direccion" class="form-control form-control-sm" value="{{$tarea['direccion']}}">
                 {!!$error->ErrorFormateado('direccion')!!}<br>
-                <label class="form-label">Población</label><br>
+                <label class="form-label">Población</label>
                 <input type="text" name="poblacion" class="form-control form-control-sm" value="{{$tarea['poblacion']}}">
                 {!!$error->ErrorFormateado('poblacion')!!}<br>
-                <label class="form-label">Código Postal</label><br>
+                <label class="form-label">Código Postal</label>
                 <input type="text" name="codpostal" class="form-control form-control-sm" value="{{$tarea['codpostal']}}">
                 {!!$error->ErrorFormateado('codpostal')!!}<br>
-                <label class="form-label">Provincia</label><br>
+                <label class="form-label">Provincia</label>
                 <select class="form-select form-select-lg" name="provincia">
                     <option disabled>Selecciona provincia</option>
                     @foreach ($provincias as $provincia)
@@ -48,7 +48,7 @@
                 </select>
                 {!!$error->ErrorFormateado('provincia')!!}
                 <br><br>
-                <label class="form-label">Estado</label><br>
+                <label class="form-label">Estado</label>
                 <div class="form-check">
                     @if($tarea['estado'] == 'B')
                     <input class="form-check-input" type="radio" name="estado" id="espera" value="B" checked>
@@ -86,7 +86,7 @@
                 {!!$error->ErrorFormateado('estado')!!}
             </div>
             <div class="columnacampos">
-                <label class="form-label">Operario encargado</label><br>
+                <label class="form-label">Operario encargado</label>
                 <select class="form-select form-select-lg" name="operario">
                     <option disabled>Selecciona operario</option>
                     @foreach ($operarios as $operario)
@@ -99,22 +99,22 @@
                 </select>
                 {!!$error->ErrorFormateado('operario')!!}
                 <br>
-                <label class="form-label">Fecha de creación de tarea</label><br>
+                <label class="form-label">Fecha de creación de tarea</label>
                 <input type="date" name="fechacreacion" class="form-control form-control-sm" value="{{$tarea['fechacreacion']}}">
                 {!!$error->ErrorFormateado('fechacreacion')!!}<br>
-                <label class="form-label">Fecha de realización</label><br>
+                <label class="form-label">Fecha de realización</label>
                 <input type="date" name="fechafin" class="form-control form-control-sm" value="{{$tarea['fechafin']}}">
                 {!!$error->ErrorFormateado('fechafin')!!}<br>
-                <label class="form-label">Anotaciones anteriores</label><br>
+                <label class="form-label">Anotaciones anteriores</label>
                 <textarea name="anotaantes" class="form-control form-control-sm" cols="10" rows="1">{{$tarea['anotaantes']}}</textarea><br>
 
-                <label class="form-label">Anotaciones posteriores</label><br>
+                <label class="form-label">Anotaciones posteriores</label>
                 <textarea name="anotapost" class="form-control form-control-sm" cols="10" rows="1">{{$tarea['anotapost']}}</textarea><br>
 
-                <!-- <label class="form-label">Fichero resumen</label><br>
+                <!-- <label class="form-label">Fichero resumen</label>
                 <input type="file" name="fichero" class="form-control form-control-sm" id="formFileSm"><br>
 
-                <label class="form-label">Foto del trabajo</label><br>
+                <label class="form-label">Foto del trabajo</label>
                 <input type="file" name="foto" class="form-control form-control-sm" id="formFileSm"><br><br><br> -->
                 <br><input class="btn btn-success" type="submit" value="Confirmar Cambios" id="añadir">
                 <br><a href="index.php?controller=tareas&action=ver&id={{$tarea['idtarea']}}" class="btn btn-danger" role="button">Cancelar Cambios</a>
