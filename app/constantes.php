@@ -9,10 +9,10 @@ define('APP_PATH', __DIR__ . "/");
 define('CONTROLLERS_FOLDER', APP_PATH . "controllers/");
 
 // Defino constante de controlador por defecto
-define('DEFAULT_CONTROLLER', "tareas");
+define('DEFAULT_CONTROLLER', "login");
 
 // Defino constante de la acción por defecto
-define('DEFAULT_ACTION', "listar");
+define('DEFAULT_ACTION', "login");
 
 // Defino la ruta de la carpeta cache para Blade
 define('CACHE_PATH', APP_PATH . 'views/cache/');

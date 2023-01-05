@@ -67,13 +67,15 @@
                 <?php endif; ?>
             </td>
             <td>
-                <a href="index.php?controller=tareas&action=editar&id=<?php echo e($tarea['idtarea']); ?>" class="btn btn-warning" role="button">Editar</a>
-                <a href="index.php?controller=tareas&action=confirmaEliminar&id=<?php echo e($tarea['idtarea']); ?>" class="btn btn-danger" role="button">Borrar</a>
+                <!-- Solo muestro el boton de completar si la tarea no está realizada -->
+                <?php if($tarea['estado'] != 'R'): ?>
+                <a href="index.php?controller=tareas&action=completaTarea&id=<?php echo e($tarea['idtarea']); ?>" class="btn btn-success" role="button">Completar</a>
+                <?php endif; ?>
             </td>
         </tr>
     </tbody>
 </table>
-<h5><a href="index.php?controller=tareas&action=listar" class="btn btn-primary" role="button">Ir a Listado</a></h5>
+<h5><a href="index.php?controller=tareas&action=opListar" class="btn btn-primary" role="button">Ir a Listado</a></h5>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('plantilla_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\david\Desktop\FP\2º DAW (Curso 22-23)\Desarrollo Web en Entorno Servidor\Proyecto1Ev\app\views/tareaVerDetalles.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('plantilla_op', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\david\Desktop\FP\2º DAW (Curso 22-23)\Desarrollo Web en Entorno Servidor\Proyecto1Ev\app\views/tareaVerDetallesOp.blade.php ENDPATH**/ ?>

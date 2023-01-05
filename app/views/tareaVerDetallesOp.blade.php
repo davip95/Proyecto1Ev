@@ -1,4 +1,4 @@
-@extends('plantilla_admin')
+@extends('plantilla_op')
 @section('cuerpo')
 <h1>Tarea {{$tarea['idtarea']}}</h1>
 <br>
@@ -67,12 +67,14 @@
                 @endif
             </td>
             <td>
-                <a href="index.php?controller=tareas&action=editar&id={{$tarea['idtarea']}}" class="btn btn-warning" role="button">Editar</a>
-                <a href="index.php?controller=tareas&action=confirmaEliminar&id={{$tarea['idtarea']}}" class="btn btn-danger" role="button">Borrar</a>
+                <!-- Solo muestro el boton de completar si la tarea no está realizada -->
+                @if($tarea['estado'] != 'R')
+                <a href="index.php?controller=tareas&action=completaTarea&id={{$tarea['idtarea']}}" class="btn btn-success" role="button">Completar</a>
+                @endif
             </td>
         </tr>
     </tbody>
 </table>
-<h5><a href="index.php?controller=tareas&action=listar" class="btn btn-primary" role="button">Ir a Listado</a></h5>
+<h5><a href="index.php?controller=tareas&action=opListar" class="btn btn-primary" role="button">Ir a Listado</a></h5>
 
 @endsection

@@ -54,7 +54,6 @@
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="estado" id="espera" value="B" <?= isset($_POST['estado']) && $_POST['estado'] == 'B' ? 'checked' : '' ?>>
                     <label class="form-check-label" for="espera">B</label>
-
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="estado" id="pendiente" value="P" <?= isset($_POST['estado']) && $_POST['estado'] == 'P' ? 'checked' : '' ?>>

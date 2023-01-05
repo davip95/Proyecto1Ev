@@ -8,7 +8,22 @@ class Usuarios
     }
 
     /**
-     * getProvincias: devuelve un array con todos los registros de la tabla 'operarios'
+     * compruebaLogin: valida si las credenciales de usuario y contraseña se corresponden con un usuario guardado en la base de datos
+     * Si existe, devuelve un array con los datos de ese usuario, si no, devuelve false
+     *
+     * @param  string $nombre
+     * @param  string $pass
+     * @return mixed
+     */
+    public function compruebaLogin($nombre, $pass)
+    {
+        $data = Database::getInstance();
+        $stm = $data->dbh->query("SELECT * FROM usuarios WHERE nombre='" . $nombre . "' AND pass='" . $pass . "'");
+        return $stm->fetch();
+    }
+
+    /**
+     * getProvincias: devuelve un array con el id y el nombre de la tabla 'operarios'
      *
      * @return array
      */
