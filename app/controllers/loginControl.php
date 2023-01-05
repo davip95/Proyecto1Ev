@@ -27,15 +27,33 @@ function login()
         } else {
             if (Session::getInstance()->esAdmin()) {
                 // Muestro la vista de administrador
-                //header('Location: index.php?controller=tareas&action=listar');
-                Session::redirect('index.php?controller=tareas&action=listar');
+                header('Location: index.php?controller=tareas&action=listar');
+                //Session::redirect('index.php?controller=tareas&action=listar');
             } else {
                 // Muestro la vista del operario
-                //header('Location: index.php?controller=tareas&action=opListar');
-                Session::redirect('index.php?controller=tareas&action=opListar');
+                header('Location: index.php?controller=tareas&action=opListar');
+                //Session::redirect('index.php?controller=tareas&action=opListar');
             }
         }
     } else {
         echo $blade->render('login', ['error' => $error]);
     }
+}
+
+/**
+ * salir: cierra la sesion liberando las variables y destruyendola y redirige a la pantalla de login
+ *
+ * @return void
+ */
+function salir()
+{
+    // Recupero los datos de la sesion que harán falta
+    session_start();
+    // Registra que ha salido
+    $_SESSION['idx_dentro'] = false;
+    session_unset(); // Libera todas las variables de sesión
+    session_destroy(); // Destruimos la sesión
+    header('Location: ' . BASE_URL . 'index.php?controller=login&action=login');
+    // Finalizamos script
+    exit();
 }

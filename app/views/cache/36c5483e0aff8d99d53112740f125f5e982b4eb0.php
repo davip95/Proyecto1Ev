@@ -39,8 +39,12 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <p class="navbar-text">Bienvenido: </p>
-                    <li class="botonesCabecera"><a href="" id="logout"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
+                    <div id="sesion">
+                        <p class="navbar-text">Bienvenido, <span class="infosesion"><?php echo e($sesion["nombre"]); ?></span></p>
+                        <p class="navbar-text">Rol: <span class="infosesion"><?php echo e($sesion["tipo"]); ?></span></p>
+                        <p class="navbar-text">Sesión: <span class="infosesion"><?php echo e($sesion["hora"]); ?></span></p>
+                    </div>
+                    <li class="botonesCabecera"><a href="index.php?controller=login&action=salir" id="logout"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
                 </ul>
             </div>
         </nav>

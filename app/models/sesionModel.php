@@ -12,6 +12,7 @@ class Session
     const URL_LOGIN = 'index.php?controller=login&action=login';
     const TIPO = 'tipo';
     const HORA = 'hora';
+    const NOMBRE = 'nombre';
 
 
     // Más ctes o atributos como tipo de usuario, nombre, etc
@@ -58,7 +59,7 @@ class Session
             $_SESSION[self::IDX_ESTA_DENTRO] = true;
             $_SESSION[self::HORA] = date('H:i:s');
             $_SESSION[self::TIPO] = $usuario['tipo'];
-            $_SESSION['idusuario'] = $usuario['idusuario'];
+            $_SESSION[self::NOMBRE] = $usuario['nombre'];
             return true;
         }
         return false;
@@ -122,5 +123,15 @@ class Session
     public function esAdmin()
     {
         return $_SESSION[self::TIPO] == 'administrador' ? true : false;
+    }
+
+    /**
+     * esOperario: comprueba si un usuario registrado es de tipo operario. Si lo es, devuelve true y  si no, devuelve false
+     *
+     * @return void
+     */
+    public function esOperario()
+    {
+        return $_SESSION[self::TIPO] == 'operario' ? true : false;
     }
 }

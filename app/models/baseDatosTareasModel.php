@@ -33,7 +33,7 @@ class Tareas
     public function getTareasPags($condicion = '', $valorCond = '')
     {
         $data = Database::getInstance();
-        $tareasPorPagina = 5;
+        $tareasPorPagina = 4;
         // Por defecto es la página 1 pero si está presente en la URL, se toma esa
         $pagina = 1;
         if (isset($_GET["pagina"])) {
@@ -71,7 +71,7 @@ class Tareas
      */
     public function conteoTareas($condicion = '', $valorCond = '')
     {
-        $tareasPorPagina = 5;
+        $tareasPorPagina = 4;
         $data = Database::getInstance();
         // Compruebo si hay alguna condicion y valor de esta para ejecutar la sentencia con la clausula WHERE
         if ($condicion != '' && $valorCond != '')
@@ -212,7 +212,7 @@ class Tareas
     public function getTareasPagsFiltro($consulta)
     {
         $data = Database::getInstance();
-        $tareasPorPagina = 5;
+        $tareasPorPagina = 4;
         // Por defecto es la página 1 pero si está presente en la URL, se toma esa
         $pagina = 1;
         if (isset($_GET["pagina"])) {
@@ -248,7 +248,7 @@ class Tareas
      */
     public function conteoTareasFiltro($consulta)
     {
-        $tareasPorPagina = 5;
+        $tareasPorPagina = 4;
         $data = Database::getInstance();
         $stm = $data->dbh->query($consulta);
         $conteo = $stm->fetchObject()->conteo;

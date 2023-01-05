@@ -36,6 +36,9 @@ function listarProvincias()
  */
 function crear()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . "models/GestorErrores.php");
     include(APP_PATH . 'models/baseDatosTareasModel.php');
     include(APP_PATH . 'models/varios.php');
@@ -46,7 +49,7 @@ function crear()
         //Si hay algún error, muestro de nuevo el formulario con un mensaje de error en cada campo que tenga error
         if ($error->HayErrores()) {
             echo $blade->render('tareaAñadir', [
-                'error' => $error, 'operarios' => $ops, 'provincias' => $provs
+                'error' => $error, 'operarios' => $ops, 'provincias' => $provs, 'sesion' => $sesion
             ]);
         } else {
             $datosTarea = $_POST;
@@ -55,7 +58,7 @@ function crear()
             $idTarea = $tar->insertaTarea($datosTarea);
             if ($idTarea) {
                 $tarea = $tar->getTarea($idTarea);
-                echo $blade->render('tareaVerDetalles', ['tarea' => $tarea,]);
+                echo $blade->render('tareaVerDetalles', ['tarea' => $tarea, 'sesion' => $sesion]);
             } else
                 die('Error. La tarea no pudo insertarse.');
         }
@@ -63,7 +66,7 @@ function crear()
         // Creo un gestor de errores vacio para enviarlo a la plantilla de blade que necesita siempre una variable $error aunque no los haya
         $error = new GestorErrores('<span style="color:red">', '</span>');
         echo $blade->render('tareaAñadir', [
-            'error' => $error, 'operarios' => $ops, 'provincias' => $provs
+            'error' => $error, 'operarios' => $ops, 'provincias' => $provs, 'sesion' => $sesion
         ]);
     }
 }
@@ -177,6 +180,9 @@ function validar($fecha, $tipo)
  */
 function listar()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . 'models/varios.php');
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $tar = new Tareas();
@@ -184,7 +190,7 @@ function listar()
     list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPags();
     echo $blade->render('tareasVer', [
         'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
-        'paginas' => $paginas, 'conteo' => $conteo
+        'paginas' => $paginas, 'conteo' => $conteo, 'sesion' => $sesion
     ]);
 }
 
@@ -196,6 +202,9 @@ function listar()
  */
 function opListar()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . 'models/varios.php');
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $tar = new Tareas();
@@ -203,7 +212,7 @@ function opListar()
     list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPags();
     echo $blade->render('tareasVerOp', [
         'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
-        'paginas' => $paginas, 'conteo' => $conteo
+        'paginas' => $paginas, 'conteo' => $conteo, 'sesion' => $sesion
     ]);
 }
 
@@ -214,12 +223,15 @@ function opListar()
  */
 function ver()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . 'models/varios.php');
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $idTarea = $_GET["id"];
     $tar = new Tareas();
     $tarea = $tar->getTarea($idTarea);
-    echo $blade->render('tareaVerDetalles', ['tarea' => $tarea]);
+    echo $blade->render('tareaVerDetalles', ['tarea' => $tarea, 'sesion' => $sesion]);
 }
 
 /**
@@ -229,12 +241,15 @@ function ver()
  */
 function opVer()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . 'models/varios.php');
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $idTarea = $_GET["id"];
     $tar = new Tareas();
     $tarea = $tar->getTarea($idTarea);
-    echo $blade->render('tareaVerDetallesOp', ['tarea' => $tarea]);
+    echo $blade->render('tareaVerDetallesOp', ['tarea' => $tarea, 'sesion' => $sesion]);
 }
 
 /**
@@ -244,6 +259,9 @@ function opVer()
  */
 function verPendientes()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . 'models/varios.php');
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $tar = new Tareas();
@@ -251,7 +269,7 @@ function verPendientes()
     list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPags('estado', '"P"');
     echo $blade->render('tareasVerPendientes', [
         'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
-        'paginas' => $paginas, 'conteo' => $conteo
+        'paginas' => $paginas, 'conteo' => $conteo, 'sesion' => $sesion
     ]);
 }
 
@@ -262,6 +280,9 @@ function verPendientes()
  */
 function opVerPendientes()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . 'models/varios.php');
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $tar = new Tareas();
@@ -269,7 +290,7 @@ function opVerPendientes()
     list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPags('estado', '"P"');
     echo $blade->render('tareasVerPendientesOp', [
         'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
-        'paginas' => $paginas, 'conteo' => $conteo
+        'paginas' => $paginas, 'conteo' => $conteo, 'sesion' => $sesion
     ]);
 }
 
@@ -282,6 +303,9 @@ function opVerPendientes()
  */
 function editar()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . 'models/varios.php');
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $idTarea = $_GET["id"];
@@ -294,20 +318,20 @@ function editar()
         //Si hay algún error, muestro de nuevo el formulario con un mensaje de error en cada campo que tenga error
         if ($error->HayErrores()) {
             echo $blade->render('tareaModificar', [
-                'tarea' => $tarea, 'error' => $error, 'operarios' => $ops, 'provincias' => $provs
+                'tarea' => $tarea, 'error' => $error, 'operarios' => $ops, 'provincias' => $provs, 'sesion' => $sesion
             ]);
         } else {
             // Si se edita correctamente la tarea, muestro la vista de los detalles de la tarea
             $datosTarea = $_POST;
             if ($tar->editaTarea($datosTarea, $idTarea)) {
                 $tarea = $tar->getTarea($idTarea);
-                echo $blade->render('tareaVerDetalles', ['tarea' => $tarea]);
+                echo $blade->render('tareaVerDetalles', ['tarea' => $tarea, 'sesion' => $sesion]);
             } else
                 die('Error. La tarea no pudo insertarse.');
         }
     } else {
         echo $blade->render('tareaModificar', [
-            'tarea' => $tarea, 'error' => $error, 'operarios' => $ops, 'provincias' => $provs
+            'tarea' => $tarea, 'error' => $error, 'operarios' => $ops, 'provincias' => $provs, 'sesion' => $sesion
         ]);
     }
 }
@@ -319,12 +343,15 @@ function editar()
  */
 function confirmaEliminar()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . 'models/varios.php');
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $idTarea = $_GET["id"];
     $tar = new Tareas();
     $tarea = $tar->getTarea($idTarea);
-    echo $blade->render('tareaEliminar', ['tarea' => $tarea]);
+    echo $blade->render('tareaEliminar', ['tarea' => $tarea, 'sesion' => $sesion]);
 }
 
 /**
@@ -334,6 +361,9 @@ function confirmaEliminar()
  */
 function eliminarTarea()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . 'models/varios.php');
     require(APP_PATH . "models/baseDatosTareasModel.php");
     $idTarea = $_GET["id"];
@@ -342,7 +372,7 @@ function eliminarTarea()
     if ($eliminaArchivos) {
         $eliminada = $tar->eliminaTarea($idTarea);
         if ($eliminada) {
-            echo $blade->render('tareaEliminada', ['idTarea' => $idTarea]);
+            echo $blade->render('tareaEliminada', ['idTarea' => $idTarea, 'sesion' => $sesion]);
         } else
             die('Error. La tarea no pudo eliminarse.');
     } else
@@ -358,6 +388,9 @@ function eliminarTarea()
  */
 function completaTarea()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . "models/guardaArchivo.php");
     include(APP_PATH . "models/filtroVacio.php");
     include(APP_PATH . "models/filtroRadio.php");
@@ -386,7 +419,7 @@ function completaTarea()
         //Si hay algún error, muestro de nuevo el formulario con un mensaje de error en cada campo que tenga error
         if ($error->HayErrores()) {
             echo $blade->render('tareaCompletar', [
-                'tarea' => $tarea, 'error' => $error
+                'tarea' => $tarea, 'error' => $error, 'sesion' => $sesion
             ]);
         } else {
             // Si se completa correctamente la tarea, guardo los archivos adjuntos si los hay y muestro la vista de los detalles de la tarea
@@ -405,7 +438,7 @@ function completaTarea()
             }
             if ($tar->completarTarea($datosTarea, $idTarea)) {
                 $tarea = $tar->getTarea($idTarea);
-                echo $blade->render('tareaVerDetalles', ['tarea' => $tarea]);
+                echo $blade->render('tareaVerDetalles', ['tarea' => $tarea, 'sesion' => $sesion]);
             } else
                 die('Error. La tarea no pudo insertarse.');
         }
@@ -413,7 +446,7 @@ function completaTarea()
         // Creo un gestor de errores vacio para enviarlo a la plantilla de blade que necesita siempre una variable $error aunque no los haya
         $error = new GestorErrores('<span style="color:red">', '</span>');
         echo $blade->render('tareaCompletar', [
-            'tarea' => $tarea, 'error' => $error
+            'tarea' => $tarea, 'error' => $error, 'sesion' => $sesion
         ]);
     }
 }
@@ -426,6 +459,9 @@ function completaTarea()
  */
 function buscar()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . "models/GestorErrores.php");
     include(APP_PATH . 'models/baseDatosTareasModel.php');
     include_once(APP_PATH . 'models/varios.php');
@@ -480,7 +516,7 @@ function buscar()
         }
         //Si hay algún error, muestro de nuevo el formulario con los mensajes de error correspondientes
         if ($error->HayErrores()) {
-            echo $blade->render('tareasBuscar', ['error' => $error]);
+            echo $blade->render('tareasBuscar', ['error' => $error, 'sesion' => $sesion]);
         } else {
             // Si no hay errores, genero la consulta y muestro los resultados de busqueda
             // Preparo la consulta de la base de datos
@@ -525,11 +561,11 @@ function buscar()
             list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPagsFiltro($consulta);
             echo $blade->render('tareasVerBuscadas', [
                 'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
-                'paginas' => $paginas, 'conteo' => $conteo
+                'paginas' => $paginas, 'conteo' => $conteo, 'sesion' => $sesion
             ]);
         }
     } else {
-        echo $blade->render('tareasBuscar', ['error' => $error]);
+        echo $blade->render('tareasBuscar', ['error' => $error, 'sesion' => $sesion]);
     }
 }
 
@@ -541,6 +577,9 @@ function buscar()
  */
 function opBuscar()
 {
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
     include(APP_PATH . "models/GestorErrores.php");
     include(APP_PATH . 'models/baseDatosTareasModel.php');
     include_once(APP_PATH . 'models/varios.php');
@@ -595,7 +634,7 @@ function opBuscar()
         }
         //Si hay algún error, muestro de nuevo el formulario con los mensajes de error correspondientes
         if ($error->HayErrores()) {
-            echo $blade->render('tareasBuscarOp', ['error' => $error]);
+            echo $blade->render('tareasBuscarOp', ['error' => $error, 'sesion' => $sesion]);
         } else {
             // Si no hay errores, genero la consulta y muestro los resultados de busqueda
             // Preparo la consulta de la base de datos
@@ -640,10 +679,10 @@ function opBuscar()
             list($tareas, $tareasPorPagina, $pagina) = $tar->getTareasPagsFiltro($consulta);
             echo $blade->render('tareasVerBuscadasOp', [
                 'tareas' => $tareas, 'tareasPorPagina' => $tareasPorPagina, 'pagina' => $pagina,
-                'paginas' => $paginas, 'conteo' => $conteo
+                'paginas' => $paginas, 'conteo' => $conteo, 'sesion' => $sesion
             ]);
         }
     } else {
-        echo $blade->render('tareasBuscarOp', ['error' => $error]);
+        echo $blade->render('tareasBuscarOp', ['error' => $error, 'sesion' => $sesion]);
     }
 }
