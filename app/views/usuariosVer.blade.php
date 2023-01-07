@@ -24,7 +24,7 @@
                 &nbsp;
                 <a href="index.php?controller=usuarios&action=cambiaNombrePass&id={{$usuario['idusuario']}}" class="btn btn-warning" role="button">Cambiar Usuario/Clave</a>
                 &nbsp;
-                <a href="index.php?controller=usuarios&action=confirmaEliminar&id={{$usuario['idusuario']}}" class="btn btn-danger" role="button">Borrar Usuario</a>
+                <a href="index.php?controller=usuarios&action=confirmarEliminarUsuario&id={{$usuario['idusuario']}}" class="btn btn-danger" role="button">Borrar Usuario</a>
             </td>
         </tr>
         @endforeach

@@ -21,7 +21,7 @@
             <td>
                 <a href="index.php?controller=usuarios&action=cambiaNombrePass&id=<?php echo e($usuario['idusuario']); ?>" class="btn btn-warning" role="button">Cambiar Usuario/Clave</a>
                 &nbsp;
-                <a href="index.php?controller=usuarios&action=confirmaEliminar&id=<?php echo e($usuario['idusuario']); ?>" class="btn btn-danger" role="button">Borrar Usuario</a>
+                <a href="index.php?controller=usuarios&action=confirmarEliminarUsuario&id=<?php echo e($usuario['idusuario']); ?>" class="btn btn-danger" role="button">Borrar Usuario</a>
             </td>
         </tr>
     </tbody>

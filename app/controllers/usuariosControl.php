@@ -248,6 +248,13 @@ function validaCrearUsuario()
     return $error;
 }
 
+/**
+ * crearUsuario: funcion que valida el formulario de creación de nuevo usuario
+ * Si pasa la validación, inserta el usuario en la base de datos y muestra el usuario en detalle
+ * Si no la pasa, vuelve a mostrar el formulario con los errores
+ *
+ * @return void
+ */
 function crearUsuario()
 {
     // Guardo los datos de la sesion para pasarlos con blade a la vista
@@ -278,4 +285,43 @@ function crearUsuario()
         echo $blade->render('usuarioAñadir', [
             'error' => $error, 'sesion' => $sesion
         ]);
+}
+
+/**
+ * confirmarEliminarUsuario: muestra el usuario cuyo id se obtiene de la url para ver todos sus detalles y confirmar o no su borrado
+ *
+ * @return void
+ */
+function confirmarEliminarUsuario()
+{
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
+    include(APP_PATH . 'models/varios.php');
+    require(APP_PATH . "models/baseDatosUsuariosModel.php");
+    $idUsuario = $_GET["id"];
+    $user = new Usuarios();
+    $usuario = $user->getUsuario($idUsuario);
+    echo $blade->render('usuarioEliminar', ['usuario' => $usuario, 'sesion' => $sesion]);
+}
+
+/**
+ * eliminarUsuario: elimina el usuario cuyo id se obtiene de la url y muestra mensaje confirmando el borrado
+ *
+ * @return void
+ */
+function eliminarUsuario()
+{
+    // Guardo los datos de la sesion para pasarlos con blade a la vista
+    session_start();
+    $sesion = $_SESSION;
+    include(APP_PATH . 'models/varios.php');
+    require(APP_PATH . "models/baseDatosUsuariosModel.php");
+    $idUsuario = $_GET["id"];
+    $user = new Usuarios();
+    $eliminado = $user->eliminaUsuario($idUsuario);
+    if ($eliminado) {
+        echo $blade->render('usuarioEliminado', ['idUsuario' => $idUsuario, 'sesion' => $sesion]);
+    } else
+        die('Error. El usuario no pudo eliminarse.');
 }

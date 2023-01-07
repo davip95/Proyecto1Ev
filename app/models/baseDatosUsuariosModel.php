@@ -145,4 +145,18 @@ class Usuarios
             return false;
         }
     }
+
+    /**
+     * eliminaUsuario: elimina el usuario cuyo ID se pasa como parámetro de la base de datos
+     *
+     * @param  int $idUsuario
+     * @return boolean
+     */
+    public function eliminaUsuario($idUsuario)
+    {
+        $data = Database::getInstance();
+        $stm = $data->dbh->prepare("DELETE FROM usuarios WHERE idusuario= ?;");
+        $res = $stm->execute([$idUsuario]);
+        return $res;
+    }
 }

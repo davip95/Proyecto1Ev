@@ -9,7 +9,6 @@
             <th>Nombre</th>
             <th>Contraseña</th>
             <th>Tipo</th>
-            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -18,14 +17,11 @@
             <td>{{$usuario['nombre']}}</td>
             <td>{{$usuario['pass']}}</td>
             <td>{{$usuario['tipo']}}</td>
-            <td>
-                <a href="index.php?controller=usuarios&action=cambiaNombrePass&id={{$usuario['idusuario']}}" class="btn btn-warning" role="button">Cambiar Usuario/Clave</a>
-                &nbsp;
-                <a href="index.php?controller=usuarios&action=confirmarEliminarUsuario&id={{$usuario['idusuario']}}" class="btn btn-danger" role="button">Borrar Usuario</a>
-            </td>
         </tr>
     </tbody>
 </table>
-<h5><a href="index.php?controller=usuarios&action=listar" class="btn btn-primary" role="button">Ir a Listado de Usuarios</a></h5>
-
+<div class="alert alert-danger aletarborrar" role="alert"><strong>Esta operación es irreversible. Asegúrese de que quiere eliminar el usuario antes de confirmarlo.</strong></div>
+<h5><a href="index.php?controller=usuarios&action=ver&id={{$usuario['idusuario']}}" class="btn btn-danger" role="button"><i class="bi bi-x-square"></i> Cancelar Borrado</a></h5>
+<br>
+<h5><a href="index.php?controller=usuarios&action=eliminarUsuario&id={{$usuario['idusuario']}}" class="btn btn-success" role="button"><i class="bi bi-check-square"></i> Confirmar Borrado</a></h5>
 @endsection
