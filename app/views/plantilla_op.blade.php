@@ -44,6 +44,9 @@ if ($_SESSION['idx_dentro'] == false || $_SESSION['tipo'] == 'administrador') {
                     <li class="nav-item">
                         <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=opBuscar" role="button"><i class="bi bi-search"></i> Buscar Tareas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=usuarios&action=opVer&id={{$sesion['idusuario']}}" role="button"><i class="bi bi-person-circle"></i> Mi Usuario</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <div id="sesion">

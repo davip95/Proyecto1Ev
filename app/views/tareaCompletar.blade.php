@@ -1,4 +1,4 @@
-@extends('plantilla_admin')
+@extends('plantilla_op')
 @section('cuerpo')
 <h1>Completar Tarea {{$tarea['idtarea']}}</h1>
 <br>

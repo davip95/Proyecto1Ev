@@ -13,6 +13,7 @@ class Session
     const TIPO = 'tipo';
     const HORA = 'hora';
     const NOMBRE = 'nombre';
+    const ID_USUARIO = 'idusuario';
 
 
     // Más ctes o atributos como tipo de usuario, nombre, etc
@@ -60,6 +61,7 @@ class Session
             $_SESSION[self::HORA] = date('H:i:s');
             $_SESSION[self::TIPO] = $usuario['tipo'];
             $_SESSION[self::NOMBRE] = $usuario['nombre'];
+            $_SESSION[self::ID_USUARIO] = $usuario['idusuario'];
             return true;
         }
         return false;

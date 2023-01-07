@@ -62,7 +62,7 @@ class Tareas
     }
 
     /**
-     * conteoTareas: obtiene el numero de tareas y las divide entre las tareas por paginas para obtener las paginas totales para la paginacion. 
+     * conteoTareas: obtiene el numero de tareas y las divide entre las tareas por pagina para obtener las paginas totales para la paginacion. 
      * Devuelve el numero de paginas y el numero de tareas
      *
      * @param  mixed $condicion: campo de la tabla por el que filtrar
@@ -80,7 +80,7 @@ class Tareas
             $stm = $data->dbh->query("SELECT count(*) AS conteo FROM tareas");
         }
         $conteo = $stm->fetchObject()->conteo;
-        // Para obtener las páginas dividimos el conteo entre los productos por página, y redondeamos hacia arriba
+        // Para obtener las páginas dividimos el conteo entre las tareas por página, y redondeamos hacia arriba
         $paginas = ceil($conteo / $tareasPorPagina);
         return [$paginas, $conteo];
     }
@@ -186,7 +186,7 @@ class Tareas
      *
      * @param  mixed $datosTarea
      * @param  int $idTarea
-     * @return void
+     * @return boolean
      */
     public function completarTarea($datosTarea, $idTarea)
     {

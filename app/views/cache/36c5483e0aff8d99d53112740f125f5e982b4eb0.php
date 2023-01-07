@@ -47,6 +47,15 @@ if ($_SESSION['idx_dentro'] == false || $_SESSION['tipo'] == 'operario') {
                     <li class="nav-item">
                         <a class="btn btn-dark" id="linkhead" href="index.php?controller=tareas&action=buscar" role="button"><i class="bi bi-search"></i> Buscar Tareas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=usuarios&action=listar" role="button"><i class="bi bi-person-lines-fill"></i> Listar Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=usuarios&action=crearUsuario" role="button"><i class="bi bi-person-plus"></i> Añadir Usuario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark" id="linkhead" href="index.php?controller=usuarios&action=ver&id=<?php echo e($sesion['idusuario']); ?>" role="button"><i class="bi bi-person-circle"></i> Mi Usuario</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <div id="sesion">
