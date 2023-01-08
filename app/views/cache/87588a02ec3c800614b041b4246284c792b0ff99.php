@@ -23,8 +23,9 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="form px-4 pt-5">
-                            <input type="text" name="usuario" class="form-control" id="usertext" placeholder="Usuario" value="<?= isset($_POST['usuario']) ? $_POST['usuario'] : '' ?>">
+                            <input type="text" name="usuario" class="form-control" id="usertext" placeholder="Usuario" value="<?= isset($_COOKIE['usuario']) ? $_COOKIE['usuario'] : '' ?>">
                             <input type="password" name="pass" class="form-control" id="passwordtext" placeholder="Contraseña">
+                            <label><input type="checkbox" name="recuerdo" <?= isset($_COOKIE['recuerdo']) ? 'checked' : '' ?>> Recordar Usuario</label>
                             <br>
                             <input type="submit" class="btn btn-dark btn-block" value="Entrar">
                             <?php echo $error->ErrorFormateado("login"); ?>

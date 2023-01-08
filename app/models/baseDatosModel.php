@@ -12,7 +12,7 @@ class Database
 
     public function __construct()
     {
-        $this->dbh = new PDO('mysql:host=localhost;dbname=bunglebuildficherofoto', 'root', '');
+        $this->dbh = new PDO('mysql:host=localhost;dbname=bunglebuild', 'root', '');
     }
 
     /**

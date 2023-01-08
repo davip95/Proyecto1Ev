@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-01-2023 a las 20:55:46
+-- Tiempo de generación: 08-01-2023 a las 12:20:15
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.1.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `bunglebuildficherofoto`
+-- Base de datos: `bunglebuild`
 --
 
 -- --------------------------------------------------------

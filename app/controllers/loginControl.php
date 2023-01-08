@@ -25,6 +25,17 @@ function login()
         if ($error->HayErrores()) {
             echo $blade->render('login', ['error' => $error]);
         } else {
+            // Una vez el login es correcto, creo las cookies para recordar usuario y marcar el checkbox si ha marcado la opción
+            if (isset($_POST['recuerdo']) && ($_POST['recuerdo'] == "on")) {
+                setcookie('recuerdo', $_POST['recuerdo'], time() + (365 * 24 * 60 * 60));
+                setcookie('usuario', $_POST['usuario'], time() + (365 * 24 * 60 * 60));
+            } else {
+                //Si no está seleccionado el checkbox y existen las cookies, las elimino
+                if (isset($_COOKIE['usuario'])) {
+                    setcookie('usuario', "");
+                    setcookie('recuerdo', "");
+                }
+            }
             if (Session::getInstance()->esAdmin()) {
                 // Muestro la vista de administrador
                 header('Location: index.php?controller=tareas&action=listar');
