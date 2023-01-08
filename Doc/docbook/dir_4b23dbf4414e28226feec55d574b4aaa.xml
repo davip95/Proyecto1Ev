@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_4b23dbf4414e28226feec55d574b4aaa" xml:lang="es">
+<title>Referencia del directorio C:/Users/david/Desktop/FP/2º DAW (Curso 22-23)/Desarrollo Web en Entorno Servidor/Proyecto1Ev/app</title>
+<indexterm><primary>Referencia del directorio C:/Users/david/Desktop/FP/2º DAW (Curso 22-23)/Desarrollo Web en Entorno Servidor/Proyecto1Ev/app</primary></indexterm>
+<simplesect>
+    <title>Directorios    </title>
+        <itemizedlist>
+            <listitem><para>directorio <link linkend="_dir_5385761e7c97da78667096b6e31c99b6">controllers</link></para>
+</listitem>
+            <listitem><para>directorio <link linkend="_dir_b1b9bc6ef853b71beef89db7f9000c06">models</link></para>
+</listitem>
+            <listitem><para>directorio <link linkend="_dir_b990d50b6648db87f6f3f4d93661032b">views</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Archivos    </title>
+        <itemizedlist>
+            <listitem><para>archivo <link linkend="_constantes_8php">constantes.php</link></para>
+</listitem>
+            <listitem><para>archivo <link linkend="_index_8php">index.php</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>
